@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Interactive study guide for Matn al-Ajurrumiyyah (al-Ajrumiyyah) in Arabic nahw — from Bab al-Kalam through the Tawabi' (Na't, 'Atf, Tawkid, Badal). Matn, translation, flashcards, and quiz. Works offline.">
+<title>متن الآجُرّومية · Ajrumiyyah Nahw Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1410;
+    --paper:#f4ece0;
+    --paper-2:#ebe0cd;
+    --card:#fbf5ea;
+    --line:#cdbfa6;
+    --accent:#1f5c4d;
+    --accent-2:#9c3a1f;
+    --gold:#b88a2e;
+    --muted:#7a6c56;
+    --good:#1f5c4d;
+    --bad:#9c3a1f;
+    --shadow:0 1px 0 #fff8 inset,0 6px 22px -12px #4a36207a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Fraunces',Georgia,serif;
+    line-height:1.55;
+    min-height:100vh;
+    background-image:radial-gradient(circle at 12% 8%,#fff6e6 0,transparent 45%),radial-gradient(circle at 88% 92%,#e7d8bd 0,transparent 50%);
+  }
+  .ar{font-family:'Amiri','Scheherazade New',serif;direction:rtl;unicode-bidi:isolate}
+  .ar-lg{font-size:1.55em;line-height:1.95}
+  .mono{font-family:'Spline Sans Mono',monospace}
+
+  header{
+    position:sticky;top:0;z-index:50;
+    background:linear-gradient(180deg,#1a1410,#241a12);
+    color:var(--paper);
+    border-bottom:2px solid var(--gold);
+  }
+  .hwrap{max-width:1080px;margin:0 auto;padding:14px 18px 0}
+  .brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .brand h1{font-size:clamp(1.15rem,3.6vw,1.7rem);font-weight:900;letter-spacing:-.01em}
+  .brand .sub{font-size:.8rem;color:#d8c79f;font-family:'Spline Sans Mono',monospace;letter-spacing:.04em}
+  .brand .ar{font-size:clamp(1.3rem,4vw,1.9rem);color:var(--gold)}
+  nav{display:flex;gap:2px;overflow-x:auto;margin-top:12px;padding-bottom:2px;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav button{
+    background:transparent;border:0;color:#cbb98f;
+    font-family:'Spline Sans Mono',monospace;font-size:.82rem;
+    padding:9px 14px;cursor:pointer;white-space:nowrap;
+    border-bottom:3px solid transparent;transition:.18s;
+  }
+  nav button:hover{color:#fff}
+  nav button.on{color:#fff;border-bottom-color:var(--accent)}
+
+  main{max-width:1080px;margin:0 auto;padding:26px 18px 90px}
+  .view{display:none;animation:fade .35s ease}
+  .view.on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  h2.section{font-size:clamp(1.4rem,4vw,2rem);font-weight:900;margin-bottom:6px;letter-spacing:-.02em}
+  .lede{color:var(--muted);max-width:64ch;margin-bottom:22px;font-size:.98rem}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px;
+  }
+  .babcard{position:relative;overflow:hidden}
+  .babcard .bid{
+    position:absolute;top:0;right:0;background:var(--accent);color:#fff;
+    font-family:'Spline Sans Mono',monospace;font-size:.72rem;font-weight:500;
+    padding:4px 12px;border-bottom-left-radius:12px;
+  }
+  .babcard.g-afaal .bid{background:var(--accent-2)}
+  .babcard.g-marfuat .bid{background:var(--gold)}
+  .babcard.g-tawabi .bid{background:#5a4632}
+  .babname{font-weight:900;font-size:1.12rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-right:64px}
+  .babname .ar{font-size:1.7rem;color:var(--accent)}
+  .babcard.g-afaal .babname .ar{color:var(--accent-2)}
+  .babcard.g-marfuat .babname .ar{color:#8a6510}
+  .babcard.g-tawabi .babname .ar{color:#5a4632}
+  .tag{font-family:'Spline Sans Mono',monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;
+    padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);background:#fff6}
+
+  .matn{
+    margin-top:12px;background:#fbf2e2;border:1px solid var(--line);border-right:4px solid var(--gold);
+    border-radius:9px;padding:12px 16px;
+  }
+  .matn .ar{font-family:'Amiri',serif;font-size:1.45rem;line-height:2.1;color:var(--ink)}
+  .matn small{display:block;margin-top:6px;color:var(--muted);font-size:.76rem;font-family:'Spline Sans Mono',monospace}
+  .gloss{margin-top:12px;font-size:.97rem}
+  .gloss strong{color:var(--accent)}
+  .babcard.g-afaal .gloss strong{color:var(--accent-2)}
+  ul.pts{margin:10px 0 0;padding-left:20px;font-size:.95rem}
+  ul.pts li{margin:5px 0}
+  ul.pts .ar{font-size:1.25rem}
+  .ex{margin-top:12px;background:#fff7ea;border:1px dashed var(--line);border-radius:9px;padding:9px 14px;font-size:.92rem}
+  .ex .ar{font-size:1.45rem;color:var(--accent-2)}
+  .ex b{color:var(--accent)}
+
+  .grp-h{display:flex;align-items:center;gap:12px;margin:28px 0 12px;flex-wrap:wrap}
+  .grp-h h3{font-size:1.25rem;font-weight:900}
+  .grp-h .ar{font-size:1.7rem;color:var(--accent)}
+  .pill{font-family:'Spline Sans Mono',monospace;font-size:.7rem;background:var(--ink);color:var(--paper);padding:3px 10px;border-radius:999px}
+
+  .filterbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .filterbar button{
+    font-family:'Spline Sans Mono',monospace;font-size:.78rem;padding:7px 13px;border-radius:999px;
+    border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:.15s
+  }
+  .filterbar button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+  /* reference tables */
+  .tcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);margin-bottom:16px}
+  .tcard h3{font-size:1.1rem;margin-bottom:3px}
+  .tcard .meta{color:var(--muted);font-size:.85rem;margin-bottom:14px;font-family:'Spline Sans Mono',monospace}
+  table.ref{width:100%;border-collapse:collapse}
+  table.ref th,table.ref td{border:1px solid var(--line);padding:9px 8px;text-align:center;font-size:.92rem}
+  table.ref th{background:var(--paper-2);font-weight:700}
+  table.ref td .ar,table.ref th .ar{font-size:1.4rem}
+  table.ref td.lab{font-family:'Spline Sans Mono',monospace;font-size:.78rem;background:#fff8;color:var(--muted);font-weight:500}
+  .scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chip{background:#fff7ea;border:1px solid var(--line);border-radius:8px;padding:7px 12px;font-size:1.15rem;font-family:'Amiri',serif;direction:rtl}
+  .chip small{display:block;font-family:'Spline Sans Mono',monospace;font-size:.62rem;color:var(--muted);direction:ltr;margin-top:2px}
+
+  /* flashcards */
+  .fc-stage{perspective:1400px;max-width:560px;margin:0 auto}
+  .fc{position:relative;width:100%;min-height:300px;cursor:pointer;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,.2,.2,1)}
+  .fc.flip{transform:rotateY(180deg)}
+  .fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;border:1px solid var(--line);
+    background:var(--card);box-shadow:var(--shadow);padding:28px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .fc-back{transform:rotateY(180deg);background:#fbf2e2}
+  .fc-kicker{font-family:'Spline Sans Mono',monospace;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+  .fc-q{font-size:1.2rem;font-weight:700}
+  .fc-q .ar{font-size:2rem;display:block;margin:10px 0;color:var(--accent)}
+  .fc-a{font-size:1.02rem}
+  .fc-a .ar{font-size:1.55rem;color:var(--accent-2);display:block;margin:8px 0;line-height:1.95}
+  .fc-hint{margin-top:14px;font-size:.8rem;color:var(--muted);font-family:'Spline Sans Mono',monospace}
+  .fc-ctrl{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+  .fc-ctrl button,.btn{font-family:'Spline Sans Mono',monospace;font-size:.82rem;padding:10px 18px;border-radius:10px;
+    border:1px solid var(--line);background:var(--card);cursor:pointer;transition:.15s;color:var(--ink)}
+  .fc-ctrl button:hover,.btn:hover{background:var(--ink);color:var(--paper)}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn.primary:hover{background:#16453a}
+  .counter{text-align:center;font-family:'Spline Sans Mono',monospace;font-size:.8rem;color:var(--muted);margin-top:14px}
+  .tsel{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .tsel button{font-family:'Spline Sans Mono',monospace;font-size:.78rem;padding:8px 14px;border-radius:10px;
+    border:1px solid var(--line);background:var(--card);cursor:pointer;transition:.15s;color:var(--ink)}
+  .tsel button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* matching */
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:780px}
+  .mtile{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 12px;cursor:pointer;
+    transition:.14s;font-size:.92rem;min-height:62px;display:flex;align-items:center;justify-content:center;text-align:center}
+  .mtile .ar{font-size:1.4rem}
+  .mtile:hover{border-color:var(--ink)}
+  .mtile.sel{background:var(--gold);color:#fff;border-color:var(--gold)}
+  .mtile.done{background:#dfeee7;border-color:var(--accent);color:var(--accent);cursor:default;opacity:.6}
+  .mtile.wrong{animation:shake .4s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
+  /* quiz */
+  .qbox{max-width:700px}
+  .qprompt{font-size:1.08rem;font-weight:700;margin-bottom:6px}
+  .qprompt .ar{font-size:1.6rem;color:var(--accent)}
+  .qopt{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;padding:13px 16px;margin:8px 0;cursor:pointer;font-family:inherit;font-size:1rem;transition:.14s}
+  .qopt .ar{font-size:1.35rem}
+  .qopt:hover{border-color:var(--ink)}
+  .qopt.correct{background:#dfeee7;border-color:var(--accent);color:var(--accent);font-weight:700}
+  .qopt.incorrect{background:#f3ddd5;border-color:var(--accent-2);color:var(--accent-2)}
+  .qexp{margin-top:14px;padding:13px 16px;background:#fff7ea;border:1px dashed var(--line);border-radius:10px;font-size:.92rem;display:none}
+  .qexp.show{display:block}
+  .progress{height:7px;background:var(--paper-2);border-radius:99px;overflow:hidden;margin:18px 0}
+  .progress span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));transition:.4s}
+  .scorebanner{text-align:center;padding:30px}
+  .scorebanner .big{font-size:3rem;font-weight:900;font-family:'Fraunces',serif}
+
+  footer{text-align:center;color:var(--muted);font-size:.78rem;padding:30px 18px 50px;font-family:'Spline Sans Mono',monospace}
+  .kbd{font-family:'Spline Sans Mono',monospace;font-size:.72rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;background:#fff8}
+  @media(max-width:560px){
+    .match-grid{grid-template-columns:1fr}
+    main{padding:20px 14px 80px}
+    .matn .ar{font-size:1.25rem}
+  }
+  .hide{display:none!important}
+</style>
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <span class="ar">مَتْنُ الآجُرّومِيَّة</span>
+      <h1>Ajrumiyyah Nahw Guide</h1>
+      <span class="sub">naḥw · iʿrāb · al-marfūʿāt · at-tawābiʿ</span>
+    </div>
+    <nav id="nav"></nav>
+  </div>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section class="view on" id="v-home">
+    <h2 class="section">Ajrumiyyah — Study Guide</h2>
+    <p class="lede">The classical primer of Arabic <strong>naḥw</strong> by Ibn Ājurrūm (d. 723 AH), covered from <strong>Bāb al-Kalām</strong> through the four <strong>Tawābiʿ</strong> (Naʿt, ʿAṭf, Tawkīd, Badal). Each chapter gives the original <em>matn</em>, a translation, a structured breakdown, and worked examples. Works fully offline — tap a flashcard to flip.</p>
+    <div class="card babcard">
+      <div class="babname"><span class="ar">١</span> Chapters (al-Abwāb)</div>
+      <div class="gloss">Every <em>bāb</em> from al-Kalām → al-Iʿrāb → ʿAlāmāt → al-Muʿrabāt → al-Afʿāl → al-Marfūʿāt → at-Tawābiʿ. Matn + translation + breakdown + examples. Filterable by section.</div>
+      <div style="margin-top:12px"><button class="btn primary" data-go="chapters">Open Chapters →</button></div>
+    </div>
+    <div class="card babcard">
+      <div class="babname"><span class="ar">٢</span> Reference Tables</div>
+      <div class="gloss">The iʿrāb-signs matrix (rafʿ/naṣb/khafḍ/jazm × word type), the 10 nawāṣib and 18 jawāzim, the sisters of <em>kāna / inna / ẓanna</em>, the five nouns, and the <em>maʿārif</em>.</div>
+      <div style="margin-top:12px"><button class="btn primary" data-go="tables">Open Tables →</button></div>
+    </div>
+    <div class="card babcard">
+      <div class="babname"><span class="ar">٣</span> Active Recall</div>
+      <div class="gloss">Flashcards (definition recall + matn recall), a matching game (term ↔ definition), and a quiz with multiple-choice questions on definitions, signs, and classification.</div>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" data-go="cards">Flashcards</button>
+        <button class="btn" data-go="match">Matching</button>
+        <button class="btn" data-go="quiz">Quiz</button>
+      </div>
+    </div>
+    <div class="card" style="background:#fbf2e2">
+      <div class="babname"><span class="ar">★</span> How to study this</div>
+      <div class="gloss" style="margin-top:8px">
+        <strong>Step 1:</strong> Read each chapter's matn aloud (right-to-left) until it flows, then read the breakdown.<br>
+        <strong>Step 2:</strong> Flashcards in <em>Definition</em> mode — produce the Ajrumiyyah definition from the term.<br>
+        <strong>Step 3:</strong> Matching game to lock term ↔ definition pairs.<br>
+        <strong>Step 4:</strong> Full Quiz; revisit any chapter you miss. Repeat the matn of weak chapters from memory.
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTERS -->
+  <section class="view" id="v-chapters">
+    <h2 class="section">Chapters · al-Abwāb</h2>
+    <p class="lede">From the definition of speech to the followers. Each card: the <span class="tag">matn</span> in Arabic, an English rendering, a structured breakdown, and examples (<span class="ar" style="color:var(--accent-2)">نحو</span>).</p>
+    <div class="filterbar" id="ch-filter">
+      <button class="on" data-f="all">All</button>
+      <button data-f="usul">Uṣūl (Kalām · Iʿrāb)</button>
+      <button data-f="afaal">Af‘āl</button>
+      <button data-f="marfuat">Marfū‘āt</button>
+      <button data-f="tawabi">Tawābi‘</button>
+    </div>
+    <div id="ch-out"></div>
+  </section>
+
+  <!-- TABLES -->
+  <section class="view" id="v-tables">
+    <h2 class="section">Reference Tables</h2>
+    <p class="lede">The high-yield lists, condensed. Swipe tables sideways on mobile.</p>
+    <div id="tables-out"></div>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="view" id="v-cards">
+    <h2 class="section">Flashcards</h2>
+    <p class="lede">Tap card to flip. Use <strong>Got it</strong> / <strong>Again</strong> to push weak cards forward.</p>
+    <div class="tsel" id="fc-mode">
+      <button class="on" data-m="def">Definition recall</button>
+      <button data-m="matn">Matn recall</button>
+    </div>
+    <div class="fc-stage">
+      <div class="fc" id="fc">
+        <div class="fc-face fc-front"><div class="fc-kicker" id="fck">—</div><div class="fc-q" id="fcq">—</div><div class="fc-hint">tap to flip</div></div>
+        <div class="fc-face fc-back"><div class="fc-kicker">answer</div><div class="fc-a" id="fca">—</div></div>
+      </div>
+    </div>
+    <div class="fc-ctrl">
+      <button id="fc-again">↻ Again</button>
+      <button id="fc-flip" class="primary" style="background:var(--accent);color:#fff;border-color:var(--accent)">Flip</button>
+      <button id="fc-got">✓ Got it</button>
+    </div>
+    <div class="counter" id="fc-count">—</div>
+  </section>
+
+  <!-- MATCHING -->
+  <section class="view" id="v-match">
+    <h2 class="section">Matching Game</h2>
+    <p class="lede">Match each term to its Ajrumiyyah definition. Pick one tile from each side.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+      <button class="btn primary" id="m-new">New round</button>
+      <span class="counter" id="m-stat" style="margin:0;align-self:center">—</span>
+    </div>
+    <div class="match-grid" id="match-grid"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="view" id="v-quiz">
+    <h2 class="section">Quiz</h2>
+    <p class="lede">Multiple choice on definitions, iʿrāb signs, and classification.</p>
+    <div class="tsel" id="quiz-mode">
+      <button class="on" data-qm="mixed">Mixed (20)</button>
+      <button data-qm="def">Definitions</button>
+      <button data-qm="signs">Signs &amp; counts</button>
+    </div>
+    <div id="quiz-out" class="qbox"></div>
+  </section>
+</main>
+
+<footer>
+  مَتْن الآجُرّومية · Ibn Ājurrūm aṣ-Ṣanhājī (d. 723 AH) · study aid: al-Kalām → at-Tawābiʿ
+</footer>
+
+<script>/* ===========================================================
+   DATA — Matn al-Ajurrumiyyah (an-nahw)
+   Scope: Bab al-Kalam through the four Tawabi'
+   (Na't, 'Atf, Tawkid, Badal). Stops before al-Mansubat.
+   =========================================================== */
+
+const CHAPTERS = [
+
+/* ===================== USUL ===================== */
+{id:"B1", grp:"usul", title:"Bāb al-Kalām", ar:"بَابُ الكَلامِ",
+ tag:"speech & its parts",
+ matn:"الكَلامُ هُوَ اللَّفْظُ المُرَكَّبُ المُفِيدُ بِالوَضْعِ. وَأَقْسامُهُ ثَلاثَةٌ: اسْمٌ، وَفِعْلٌ، وَحَرْفٌ جَاءَ لِمَعْنًى. فالاسْمُ يُعْرَفُ بِالخَفْضِ، وَالتَّنْوِينِ، وَدُخُولِ الأَلِفِ وَاللامِ، وَحُرُوفِ الخَفْضِ. وَالفِعْلُ يُعْرَفُ بِقَدْ، وَالسِّينِ، وَسَوْفَ، وَتَاءِ التَّأْنِيثِ السَّاكِنَةِ. وَالحَرْفُ مَا لا يَصْلُحُ مَعَهُ دَلِيلُ الاسْمِ وَلا دَلِيلُ الفِعْلِ.",
+ en:"Speech (al-kalām) is the utterance that is <strong>composed</strong>, <strong>meaningful</strong>, and <strong>by convention</strong>. Its parts are three: a noun (ism), a verb (fiʿl), and a particle (ḥarf) that came for a meaning.",
+ pts:[
+  "<b>Four conditions of kalām:</b> اللفظ (a sound containing Arabic letters), المركب (two+ words), المفيد (gives a complete meaning so silence is acceptable), بالوضع (set down intentionally in Arabic).",
+  "<b>Signs of the ism:</b> al-khafḍ (being in the genitive), al-tanwīn, accepting <span class='ar'>الـ</span>, and being preceded by a ḥarf of khafḍ.",
+  "<b>Signs of the fiʿl:</b> accepting <span class='ar'>قَدْ</span>, the <span class='ar'>سـ</span>, <span class='ar'>سَوْفَ</span>, and the quiescent tāʾ of feminisation (<span class='ar'>قامَتْ</span>).",
+  "<b>The ḥarf</b> is recognised by exclusion: it accepts neither the sign of the ism nor of the fiʿl."],
+ ex:"<span class='ar'>قامَ زَيْدٌ</span> — composed, meaningful, by convention → kalām. <span class='ar'>زَيْدٌ</span> ism (tanwīn). <span class='ar'>قامَ</span> fiʿl. <span class='ar'>هَلْ، فِي، لَمْ</span> ḥarf."},
+
+{id:"B2", grp:"usul", title:"Bāb al-Iʿrāb", ar:"بَابُ الإِعْرَابِ",
+ tag:"declension",
+ matn:"الإِعْرَابُ هُوَ تَغْيِيرُ أَوَاخِرِ الكَلِمِ لاخْتِلافِ العَوَامِلِ الدَّاخِلَةِ عَلَيْهَا لَفْظًا أَوْ تَقْدِيرًا. وَأَقْسَامُهُ أَرْبَعَةٌ: رَفْعٌ، وَنَصْبٌ، وَخَفْضٌ، وَجَزْمٌ. فَلِلأَسْمَاءِ مِنْ ذَلِكَ الرَّفْعُ وَالنَّصْبُ وَالخَفْضُ، وَلا جَزْمَ فِيهَا. وَلِلأَفْعَالِ مِنْ ذَلِكَ الرَّفْعُ وَالنَّصْبُ وَالجَزْمُ، وَلا خَفْضَ فِيهَا.",
+ en:"Iʿrāb is the <strong>changing of the ends of words</strong> on account of the differing governing agents (ʿawāmil) that enter upon them — whether the change is <strong>pronounced</strong> (lafẓan) or <strong>estimated</strong> (taqdīran).",
+ pts:[
+  "<b>Four types:</b> rafʿ, naṣb, khafḍ (= jarr), jazm.",
+  "<b>Nouns</b> take rafʿ, naṣb, khafḍ — never jazm.",
+  "<b>Verbs</b> (the muḍāriʿ) take rafʿ, naṣb, jazm — never khafḍ.",
+  "<b>Lafẓan</b> = the ending visibly changes (<span class='ar'>زيدٌ/زيدًا</span>). <b>Taqdīran</b> = estimated on a final weak letter (<span class='ar'>الفتى، القاضي</span>)."],
+ ex:"<span class='ar'>جاءَ زيدٌ · رأيتُ زيدًا · مررتُ بزيدٍ</span> — rafʿ, naṣb, khafḍ on the one noun as the ʿāmil changes."},
+
+{id:"B3", grp:"usul", title:"Bāb Maʿrifat ʿAlāmāt al-Iʿrāb", ar:"بَابُ مَعْرِفَةِ عَلَامَاتِ الإِعْرَابِ",
+ tag:"signs of i'rab",
+ matn:"لِلرَّفْعِ أَرْبَعُ عَلَامَاتٍ: الضَّمَّةُ، وَالوَاوُ، وَالأَلِفُ، وَالنُّونُ. وَلِلنَّصْبِ خَمْسُ عَلَامَاتٍ: الفَتْحَةُ، وَالأَلِفُ، وَالكَسْرَةُ، وَاليَاءُ، وَحَذْفُ النُّونِ. وَلِلخَفْضِ ثَلاثُ عَلَامَاتٍ: الكَسْرَةُ، وَاليَاءُ، وَالفَتْحَةُ. وَلِلجَزْمِ عَلَامَتَانِ: السُّكُونُ، وَالحَذْفُ.",
+ en:"Rafʿ has <strong>4</strong> signs, naṣb has <strong>5</strong>, khafḍ has <strong>3</strong>, jazm has <strong>2</strong>. Each sign belongs to specific categories of word.",
+ pts:[
+  "<b>Rafʿ (4):</b> ḍamma (ism mufrad, jamʿ taksīr, jamʿ muʾannath sālim, muḍāriʿ with nothing on its end); wāw (jamʿ mudhakkar sālim, the 5 nouns); alif (the dual); nūn (the 5 verbs — <span class='ar'>الأفعال الخمسة</span>).",
+  "<b>Naṣb (5):</b> fatḥa (ism mufrad, jamʿ taksīr, muḍāriʿ entered by a nāṣib); alif (the 5 nouns: <span class='ar'>رأيتُ أباكَ</span>); kasra (jamʿ muʾannath sālim); yāʾ (dual & jamʿ mudhakkar sālim); ḥadhf an-nūn (the 5 verbs).",
+  "<b>Khafḍ (3):</b> kasra (ism mufrad munṣarif, jamʿ taksīr munṣarif, jamʿ muʾannath sālim); yāʾ (5 nouns, dual, jamʿ mudhakkar sālim); fatḥa (the noun forbidden from tanwīn — <span class='ar'>ما لا ينصرف</span>).",
+  "<b>Jazm (2):</b> sukūn (sound-ending muḍāriʿ); ḥadhf (weak-ending muḍāriʿ → drop the weak letter; the 5 verbs → drop the nūn)."],
+ ex:"<span class='ar'>الزيدونَ · رأيتُ الزيدِينَ · أبوك · رأيتُ أباك · يَدْعو · لم يَدْعُ</span>"},
+
+{id:"B4", grp:"usul", title:"Faṣl: al-Muʿrabāt", ar:"فَصْلٌ: المُعْرَبَاتُ",
+ tag:"what is declined & how",
+ matn:"المُعْرَبَاتُ قِسْمَانِ: قِسْمٌ يُعْرَبُ بِالحَرَكَاتِ، وَقِسْمٌ يُعْرَبُ بِالحُرُوفِ. فَالَّذِي يُعْرَبُ بِالحَرَكَاتِ أَرْبَعَةُ أَنْوَاعٍ: الاسْمُ المُفْرَدُ، وَجَمْعُ التَّكْسِيرِ، وَجَمْعُ المُؤَنَّثِ السَّالِمُ، وَالفِعْلُ المُضَارِعُ الَّذِي لَمْ يَتَّصِلْ بِآخِرِهِ شَيْءٌ. وَالَّذِي يُعْرَبُ بِالحُرُوفِ أَرْبَعَةُ أَنْوَاعٍ: التَّثْنِيَةُ، وَجَمْعُ المُذَكَّرِ السَّالِمُ، وَالأَسْمَاءُ الخَمْسَةُ، وَالأَفْعَالُ الخَمْسَةُ.",
+ en:"Declined words are two classes: those declined by <strong>vowels</strong> (ḥarakāt) and those declined by <strong>letters</strong> (ḥurūf).",
+ pts:[
+  "<b>By ḥarakāt (4):</b> ism mufrad, jamʿ taksīr, jamʿ muʾannath sālim, muḍāriʿ with a sound free ending. Default: rafʿ ḍamma, naṣb fatḥa, khafḍ/jazm as detailed (jamʿ muʾannath sālim takes <em>kasra</em> for naṣb; muḍāriʿ takes <em>sukūn</em> for jazm).",
+  "<b>By ḥurūf (4):</b> the dual (rafʿ ا, naṣb/khafḍ ي); jamʿ mudhakkar sālim (rafʿ و, naṣb/khafḍ ي); the 5 nouns (rafʿ و, naṣb ا, khafḍ ي); the 5 verbs (rafʿ نون, naṣb/jazm by dropping the nūn).",
+  "The five nouns: <span class='ar'>أَبٌ، أَخٌ، حَمٌ، فُو، ذُو</span> — declined by letters only when singular, attached to a following word (not the yāʾ of the speaker), and enlarged (<span class='ar'>مكبّرة</span>)."],
+ ex:"<span class='ar'>الزيدانِ — رأيتُ الزيدَيْنِ · المسلمونَ — للمسلمِينَ · ذو مالٍ — أخا زيدٍ</span>"},
+
+/* ===================== AF'AL ===================== */
+{id:"B5", grp:"afaal", title:"Bāb al-Afʿāl", ar:"بَابُ الأَفْعَالِ",
+ tag:"the three verbs",
+ matn:"الأَفْعَالُ ثَلاثَةٌ: مَاضٍ، وَمُضَارِعٌ، وَأَمْرٌ، نَحْوُ: ضَرَبَ، وَيَضْرِبُ، وَاضْرِبْ. فَالمَاضِي مَفْتُوحُ الآخِرِ أَبَدًا. وَالأَمْرُ مَجْزُومٌ أَبَدًا. وَالمُضَارِعُ مَا كَانَ فِي أَوَّلِهِ إِحْدَى الزَّوَائِدِ الأَرْبَعِ الَّتِي يَجْمَعُهَا قَوْلُكَ «أَنَيْتُ»، وَهُوَ مَرْفُوعٌ أَبَدًا حَتَّى يَدْخُلَ عَلَيْهِ نَاصِبٌ أَوْ جَازِمٌ.",
+ en:"Verbs are three: past (māḍī), present (muḍāriʿ), and command (amr) — e.g. <span class='ar'>ضَرَبَ، يَضْرِبُ، اضْرِبْ</span>.",
+ pts:[
+  "<b>Al-māḍī:</b> always fatḥa-ended (built — mabnī).",
+  "<b>Al-amr:</b> always majzūm (built on what its muḍāriʿ is jazm-ed by).",
+  "<b>Al-muḍāriʿ:</b> begins with one of the four zawāʾid gathered in <span class='ar'>أَنَيْتُ</span> (the hamza, nūn, yāʾ, tāʾ).",
+  "The muḍāriʿ is <b>marfūʿ by default</b> until a nāṣib or a jāzim enters upon it."],
+ ex:"<span class='ar'>أَكتُبُ، نَكتُبُ، يَكتُبُ، تَكتُبُ</span> — the four <span class='ar'>أنيت</span> prefixes."},
+
+{id:"B6", grp:"afaal", title:"an-Nawāṣib", ar:"النَّوَاصِبُ",
+ tag:"10 particles of nasb",
+ matn:"فَالنَّوَاصِبُ عَشَرَةٌ، وَهِيَ: أَنْ، وَلَنْ، وَإِذَنْ، وَكَيْ، وَلامُ كَيْ، وَلامُ الجُحُودِ، وَحَتَّى، وَالجَوَابُ بِالفَاءِ وَالوَاوِ وَأَوْ.",
+ en:"The particles that put the muḍāriʿ into <strong>naṣb</strong> are <strong>ten</strong>.",
+ pts:[
+  "<span class='ar'>أَنْ</span> (maṣdariyya), <span class='ar'>لَنْ</span> (negation of future), <span class='ar'>إِذَنْ</span> (response/recompense), <span class='ar'>كَيْ</span> (purpose).",
+  "<span class='ar'>لامُ كَيْ</span> (lām of purpose), <span class='ar'>لامُ الجُحُودِ</span> (lām of denial — after a negated <span class='ar'>كان</span>), <span class='ar'>حَتَّى</span> (of end-point/purpose).",
+  "<b>al-jawāb</b> (the answer) by <span class='ar'>الفاء</span>, <span class='ar'>الواو</span>, or <span class='ar'>أَوْ</span> (here naṣb is by a hidden <span class='ar'>أَنْ</span>).",
+  "Total = 10. (Memorise the list in order — a classic exam item.)"],
+ ex:"<span class='ar'>لَنْ أَبرحَ · جئتُ كَيْ أتعلَّمَ · ما كان اللهُ ليُعذِّبَهم</span>"},
+
+{id:"B7", grp:"afaal", title:"al-Jawāzim", ar:"الجَوَازِمُ",
+ tag:"18 particles of jazm",
+ matn:"وَالجَوَازِمُ ثَمَانِيَةَ عَشَرَ، وَهِيَ: لَمْ، وَلَمَّا، وَأَلَمْ، وَأَلَمَّا، وَلامُ الأَمْرِ وَالدُّعَاءِ، وَلا فِي النَّهْيِ وَالدُّعَاءِ، وَإِنْ، وَمَا، وَمَنْ، وَمَهْمَا، وَإِذْمَا، وَأَيٌّ، وَمَتَى، وَأَيَّانَ، وَأَيْنَ، وَأَنَّى، وَحَيْثُمَا، وَكَيْفَمَا، وَإِذَا فِي الشِّعْرِ خَاصَّةً.",
+ en:"The particles of <strong>jazm</strong> are <strong>eighteen</strong> — split into those that jazm <em>one</em> verb and those that jazm <em>two</em> (the conditionals).",
+ pts:[
+  "<b>Jazm of one verb (6):</b> <span class='ar'>لَمْ، لَمَّا، أَلَمْ، أَلَمَّا</span>, the <span class='ar'>لام</span> of command/supplication, and <span class='ar'>لا</span> of prohibition/supplication.",
+  "<b>Jazm of two verbs — fiʿl ash-sharṭ & jawāb (12):</b> <span class='ar'>إِنْ، مَا، مَنْ، مَهْمَا، إِذْمَا، أَيٌّ، مَتَى، أَيَّانَ، أَيْنَ، أَنَّى، حَيْثُمَا، كَيْفَمَا</span>.",
+  "<span class='ar'>إِذَا</span> jazm-s two verbs <b>only in poetry</b>.",
+  "6 + 12 = 18 (the <span class='ar'>إذا</span> of poetry is counted within the conditional set)."],
+ ex:"<span class='ar'>لَمْ يَلِدْ وَلَمْ يُولَدْ · إِنْ تَدرُسْ تَنجَحْ · مَنْ يَعمَلْ سوءًا يُجزَ به</span>"},
+
+/* ===================== MARFU'AT ===================== */
+{id:"B8", grp:"marfuat", title:"Bāb Marfūʿāt al-Asmāʾ", ar:"بَابُ مَرْفُوعَاتِ الأَسْمَاءِ",
+ tag:"the seven nominatives",
+ matn:"المَرْفُوعَاتُ سَبْعَةٌ، وَهِيَ: الفَاعِلُ، وَالمَفْعُولُ الَّذِي لَمْ يُسَمَّ فَاعِلُهُ، وَالمُبْتَدَأُ، وَخَبَرُهُ، وَاسْمُ كَانَ وَأَخَوَاتِهَا، وَخَبَرُ إِنَّ وَأَخَوَاتِهَا، وَالتَّابِعُ لِلْمَرْفُوعِ، وَهُوَ أَرْبَعَةُ أَشْيَاءَ: النَّعْتُ، وَالعَطْفُ، وَالتَّوْكِيدُ، وَالبَدَلُ.",
+ en:"The nominatives (al-marfūʿāt) are <strong>seven</strong> — the list every later bāb fills in.",
+ pts:[
+  "1) al-fāʿil — 2) the substitute subject (<span class='ar'>نائب الفاعل</span>) — 3) al-mubtadaʾ — 4) its khabar.",
+  "5) the ism of <span class='ar'>كان</span> & her sisters — 6) the khabar of <span class='ar'>إنّ</span> & her sisters.",
+  "7) the <b>follower of a marfūʿ</b> — which is four things: naʿt, ʿaṭf, tawkīd, badal.",
+  "These last four are the <b>Tawābiʿ</b>; they are the end-scope of this guide."],
+ ex:"Each numbered item gets its own bāb below."},
+
+{id:"B9", grp:"marfuat", title:"Bāb al-Fāʿil", ar:"بَابُ الفَاعِلِ",
+ tag:"the doer",
+ matn:"الفَاعِلُ هُوَ الاسْمُ المَرْفُوعُ المَذْكُورُ قَبْلَهُ فِعْلُهُ. وَهُوَ عَلَى قِسْمَيْنِ: ظَاهِرٌ، وَمُضْمَرٌ.",
+ en:"The fāʿil is the <strong>marfūʿ noun mentioned with its verb before it</strong>.",
+ pts:[
+  "Always marfūʿ; its verb precedes it.",
+  "Two kinds: <b>ẓāhir</b> (explicit — <span class='ar'>قامَ زيدٌ</span>) and <b>muḍmar</b> (pronoun — <span class='ar'>قُمتُ، قاما، قاموا</span>).",
+  "The verb stays singular with a following plural/dual fāʿil: <span class='ar'>قامَ الزيدونَ</span> not <span class='ar'>قاموا الزيدونَ</span>."],
+ ex:"<span class='ar'>قامَ زيدٌ · يقومُ الزيدانِ · ضَرَبتُ · ضَرَبْنا</span> — fāʿil ẓāhir then muḍmar."},
+
+{id:"B10", grp:"marfuat", title:"Bāb al-Mafʿūl alladhī lam yusamma fāʿiluhu", ar:"بَابُ المَفْعُولِ الَّذِي لَمْ يُسَمَّ فَاعِلُهُ",
+ tag:"the deputy subject",
+ matn:"هُوَ الاسْمُ المَرْفُوعُ الَّذِي لَمْ يُذْكَرْ مَعَهُ فَاعِلُهُ. فَإِنْ كَانَ الفِعْلُ مَاضِيًا ضُمَّ أَوَّلُهُ وَكُسِرَ مَا قَبْلَ آخِرِهِ، وَإِنْ كَانَ مُضَارِعًا ضُمَّ أَوَّلُهُ وَفُتِحَ مَا قَبْلَ آخِرِهِ. وَهُوَ عَلَى قِسْمَيْنِ: ظَاهِرٌ، وَمُضْمَرٌ.",
+ en:"It is the <strong>marfūʿ noun whose doer was not named</strong> (the passive's deputy subject, nāʾib al-fāʿil).",
+ pts:[
+  "<b>If the verb is māḍī:</b> ḍamma its first letter, kasra the letter before its end (<span class='ar'>ضُرِبَ</span>).",
+  "<b>If the verb is muḍāriʿ:</b> ḍamma its first letter, fatḥa the letter before its end (<span class='ar'>يُضْرَبُ</span>).",
+  "Two kinds: ẓāhir and muḍmar — exactly like the fāʿil."],
+ ex:"<span class='ar'>ضُرِبَ زيدٌ · يُضْرَبُ عمرٌو · أُكْرِمتُ</span>"},
+
+{id:"B11", grp:"marfuat", title:"Bāb al-Mubtadaʾ wa-l-Khabar", ar:"بَابُ المُبْتَدَأِ وَالخَبَرِ",
+ tag:"subject & predicate",
+ matn:"المُبْتَدَأُ هُوَ الاسْمُ المَرْفُوعُ العَارِي عَنِ العَوَامِلِ اللَّفْظِيَّةِ. وَالخَبَرُ هُوَ الاسْمُ المَرْفُوعُ المُسْنَدُ إِلَيْهِ. وَالمُبْتَدَأُ قِسْمَانِ: ظَاهِرٌ وَمُضْمَرٌ. وَالخَبَرُ قِسْمَانِ: مُفْرَدٌ، وَغَيْرُ مُفْرَدٍ. وَغَيْرُ المُفْرَدِ أَرْبَعَةُ أَشْيَاءَ: الجَارُّ وَالمَجْرُورُ، وَالظَّرْفُ، وَالفِعْلُ مَعَ فَاعِلِهِ، وَالمُبْتَدَأُ مَعَ خَبَرِهِ.",
+ en:"The mubtadaʾ is the <strong>marfūʿ noun free of (pronounced) governing agents</strong>; the khabar is the <strong>marfūʿ noun predicated of it</strong>.",
+ pts:[
+  "<b>Mubtadaʾ:</b> ẓāhir (<span class='ar'>زيدٌ قائمٌ</span>) or muḍmar (<span class='ar'>أنا، نحن، أنتَ</span>…).",
+  "<b>Khabar:</b> mufrad (single word — <span class='ar'>زيدٌ قائمٌ</span>) or ghayr mufrad (a sentence/phrase).",
+  "<b>Ghayr mufrad = 4:</b> jārr + majrūr, ẓarf, a verb with its fāʿil, a mubtadaʾ with its khabar.",
+  "Both mubtadaʾ and khabar are marfūʿ."],
+ ex:"<span class='ar'>زيدٌ في الدارِ · زيدٌ عندك · زيدٌ قامَ أبوه · زيدٌ جاريتُه ذاهبةٌ</span>"},
+
+{id:"B12", grp:"marfuat", title:"Bāb Kāna wa-Akhawātihā", ar:"بَابُ كَانَ وَأَخَوَاتِهَا",
+ tag:"raise the ism, accuse the khabar",
+ matn:"كَانَ وَأَخَوَاتُهَا تَرْفَعُ الاسْمَ وَتَنْصِبُ الخَبَرَ، وَهِيَ: كَانَ، وَأَمْسَى، وَأَصْبَحَ، وَأَضْحَى، وَظَلَّ، وَبَاتَ، وَصَارَ، وَلَيْسَ، وَمَا زَالَ، وَمَا انْفَكَّ، وَمَا فَتِئَ، وَمَا بَرِحَ، وَمَا دَامَ، وَمَا تَصَرَّفَ مِنْهَا.",
+ en:"<strong>Kāna and her sisters raise the ism (subject) and accuse the khabar (predicate).</strong> They enter on the mubtadaʾ–khabar.",
+ pts:[
+  "List: <span class='ar'>كانَ، أمسى، أصبحَ، أضحى، ظلَّ، باتَ، صارَ، ليسَ</span>.",
+  "And the negated-continuance set: <span class='ar'>ما زالَ، ما انفكَّ، ما فتِئَ، ما برِحَ</span>, plus <span class='ar'>ما دامَ</span>.",
+  "And <b>whatever is conjugated from them</b> (<span class='ar'>يكونُ، كُنْ، أصبحَ → يُصبِحُ</span>…).",
+  "Effect: the old mubtadaʾ becomes <b>ism kāna</b> (marfūʿ); the old khabar becomes <b>khabar kāna</b> (manṣūb)."],
+ ex:"<span class='ar'>كانَ زيدٌ قائمًا · ليسَ عمرٌو شاخصًا · ما زالَ زيدٌ غنيًّا</span>"},
+
+{id:"B13", grp:"marfuat", title:"Bāb Inna wa-Akhawātihā", ar:"بَابُ إِنَّ وَأَخَوَاتِهَا",
+ tag:"accuse the ism, raise the khabar",
+ matn:"إِنَّ وَأَخَوَاتُهَا تَنْصِبُ الاسْمَ وَتَرْفَعُ الخَبَرَ، وَهِيَ: إِنَّ، وَأَنَّ، وَلَكِنَّ، وَكَأَنَّ، وَلَيْتَ، وَلَعَلَّ. فَأَمَّا «إِنَّ» وَ«أَنَّ» فَلِلتَّوْكِيدِ، وَ«لَكِنَّ» لِلاسْتِدْرَاكِ، وَ«كَأَنَّ» لِلتَّشْبِيهِ، وَ«لَيْتَ» لِلتَّمَنِّي، وَ«لَعَلَّ» لِلتَّرَجِّي وَالتَّوَقُّعِ.",
+ en:"<strong>Inna and her sisters accuse the ism and raise the khabar</strong> — the mirror of kāna.",
+ pts:[
+  "Six: <span class='ar'>إنَّ، أنَّ، لكنَّ، كأنَّ، ليتَ، لعلَّ</span>.",
+  "Meanings: <span class='ar'>إنّ/أنّ</span> emphasis (tawkīd); <span class='ar'>لكنّ</span> rectification (istidrāk); <span class='ar'>كأنّ</span> simile (tashbīh); <span class='ar'>ليتَ</span> wishing (tamannī); <span class='ar'>لعلّ</span> hope/expectation (tarajjī).",
+  "Effect: old mubtadaʾ → <b>ism inna</b> (manṣūb); old khabar → <b>khabar inna</b> (marfūʿ)."],
+ ex:"<span class='ar'>إِنَّ زيدًا قائمٌ · لَيْتَ الشبابَ عائدٌ · لَعَلَّ الحبيبَ قادمٌ</span>"},
+
+{id:"B14", grp:"marfuat", title:"Bāb Ẓanantu wa-Akhawātihā", ar:"بَابُ ظَنَنْتُ وَأَخَوَاتِهَا",
+ tag:"two maf'uls",
+ matn:"وَهِيَ تَنْصِبُ المُبْتَدَأَ وَالخَبَرَ عَلَى أَنَّهُمَا مَفْعُولانِ لَهَا، وَهِيَ: ظَنَنْتُ، وَحَسِبْتُ، وَخِلْتُ، وَزَعَمْتُ، وَرَأَيْتُ، وَعَلِمْتُ، وَوَجَدْتُ، وَاتَّخَذْتُ، وَجَعَلْتُ، وَسَمِعْتُ.",
+ en:"These verbs <strong>accuse both the mubtadaʾ and the khabar</strong> as two objects (mafʿūlān) of theirs.",
+ pts:[
+  "List: <span class='ar'>ظننتُ، حسِبتُ، خِلتُ، زعمتُ، رأيتُ، علمتُ، وجدتُ، اتخذتُ، جعلتُ، سمعتُ</span>.",
+  "They enter on a nominal sentence and make both parts <b>manṣūb</b> (1st mafʿūl = old mubtadaʾ, 2nd = old khabar).",
+  "Contrast: kāna naṣb-s only the khabar; inna naṣb-s only the ism; ẓanna naṣb-s <b>both</b>."],
+ ex:"<span class='ar'>ظَنَنتُ زيدًا قائمًا · علِمتُ العِلمَ نافعًا · جعلتُ الطينَ خزفًا</span>"},
+
+/* ===================== TAWABI' ===================== */
+{id:"B15", grp:"tawabi", title:"Bāb an-Naʿt", ar:"بَابُ النَّعْتِ",
+ tag:"the adjective / description",
+ matn:"النَّعْتُ تَابِعٌ لِلْمَنْعُوتِ فِي رَفْعِهِ وَنَصْبِهِ وَخَفْضِهِ، وَتَعْرِيفِهِ وَتَنْكِيرِهِ. تَقُولُ: قَامَ زَيْدٌ العَاقِلُ، وَرَأَيْتُ زَيْدًا العَاقِلَ، وَمَرَرْتُ بِزَيْدٍ العَاقِلِ. وَالمَعْرِفَةُ خَمْسَةُ أَشْيَاءَ: الاسْمُ المُضْمَرُ، وَالاسْمُ العَلَمُ، وَالاسْمُ المُبْهَمُ، وَالاسْمُ الَّذِي فِيهِ الأَلِفُ وَاللامُ، وَمَا أُضِيفَ إِلَى وَاحِدٍ مِنْ هَذِهِ الأَرْبَعَةِ. وَالنَّكِرَةُ كُلُّ اسْمٍ شَائِعٍ فِي جِنْسِهِ.",
+ en:"The naʿt <strong>follows the described noun (manʿūt)</strong> in its rafʿ, naṣb, khafḍ — and in its definiteness and indefiniteness.",
+ pts:[
+  "It agrees with what it describes in <b>iʿrāb</b> (rafʿ/naṣb/khafḍ) <b>and</b> in <b>taʿrīf / tankīr</b>.",
+  "<b>The maʿrifa (definite) is 5:</b> the pronoun (muḍmar), the proper noun (ʿalam), the ambiguous noun (mubham — demonstratives/relatives), the noun with <span class='ar'>الـ</span>, and what is annexed (muḍāf) to one of these four.",
+  "<b>The nakira (indefinite):</b> every noun common to its genus — broadly, what accepts <span class='ar'>رُبَّ</span> or <span class='ar'>الـ</span> giving definiteness."],
+ ex:"<span class='ar'>قامَ زيدٌ العاقلُ · رأيتُ زيدًا العاقلَ · مررتُ بزيدٍ العاقلِ</span>"},
+
+{id:"B16", grp:"tawabi", title:"Bāb al-ʿAṭf", ar:"بَابُ العَطْفِ",
+ tag:"coordination",
+ matn:"وَحُرُوفُ العَطْفِ عَشَرَةٌ، وَهِيَ: الوَاوُ، وَالفَاءُ، وَثُمَّ، وَأَوْ، وَأَمْ، وَإِمَّا، وَبَلْ، وَلا، وَلَكِنْ، وَحَتَّى فِي بَعْضِ المَوَاضِعِ. فَإِنْ عَطَفْتَ عَلَى مَرْفُوعٍ رَفَعْتَ، وَعَلَى مَنْصُوبٍ نَصَبْتَ، وَعَلَى مَخْفُوضٍ خَفَضْتَ، وَعَلَى مَجْزُومٍ جَزَمْتَ.",
+ en:"The particles of coordination (ʿaṭf) are <strong>ten</strong>; the maʿṭūf takes the same iʿrāb as the maʿṭūf ʿalayh.",
+ pts:[
+  "List: <span class='ar'>الواو، الفاء، ثُمَّ، أَوْ، أَمْ، إِمَّا، بَلْ، لا، لكنْ</span>, and <span class='ar'>حَتَّى</span> in some positions.",
+  "<b>Rule of following:</b> ʿaṭf on a marfūʿ → rafʿ; on a manṣūb → naṣb; on a makhfūḍ → khafḍ; on a majzūm → jazm.",
+  "It is one of the four tawābiʿ — it follows what precedes it in iʿrāb via the ʿāmil shared through the ḥarf."],
+ ex:"<span class='ar'>قامَ زيدٌ وعمرٌو · رأيتُ زيدًا وعمرًا · مررتُ بزيدٍ وعمرٍو · لم يقمْ زيدٌ ولا عمرٌو</span>"},
+
+{id:"B17", grp:"tawabi", title:"Bāb at-Tawkīd", ar:"بَابُ التَّوْكِيدِ",
+ tag:"corroboration / emphasis",
+ matn:"التَّوْكِيدُ تَابِعٌ لِلْمُؤَكَّدِ فِي رَفْعِهِ وَنَصْبِهِ وَخَفْضِهِ وَتَعْرِيفِهِ. وَيَكُونُ بِأَلْفَاظٍ مَعْلُومَةٍ، وَهِيَ: النَّفْسُ، وَالعَيْنُ، وَكُلٌّ، وَأَجْمَعُ، وَتَوَابِعُ أَجْمَعَ، وَهِيَ: أَكْتَعُ، وَأَبْتَعُ، وَأَبْصَعُ. تَقُولُ: قَامَ زَيْدٌ نَفْسُهُ، وَرَأَيْتُ القَوْمَ كُلَّهُمْ.",
+ en:"The tawkīd <strong>follows the corroborated word in rafʿ, naṣb, khafḍ, and taʿrīf</strong>.",
+ pts:[
+  "It is by <b>known words</b>: <span class='ar'>النفسُ، العينُ، كلٌّ، أجمعُ</span>, and the followers of <span class='ar'>أجمع</span>: <span class='ar'>أكتعُ، أبتعُ، أبصعُ</span>.",
+  "Each must carry a pronoun referring back to the muʾakkad (<span class='ar'>زيدٌ نفسُه</span>).",
+  "It agrees in iʿrāb and in definiteness (it is always definite)."],
+ ex:"<span class='ar'>قامَ زيدٌ نفسُه · جاءَ القومُ كلُّهم أجمعونَ · رأيتُ القومَ كلَّهم</span>"},
+
+{id:"B18", grp:"tawabi", title:"Bāb al-Badal", ar:"بَابُ البَدَلِ",
+ tag:"substitution",
+ matn:"إِذَا أُبْدِلَ اسْمٌ مِنِ اسْمٍ أَوْ فِعْلٌ مِنْ فِعْلٍ تَبِعَهُ فِي جَمِيعِ إِعْرَابِهِ. وَهُوَ عَلَى أَرْبَعَةِ أَقْسَامٍ: بَدَلُ الشَّيْءِ مِنَ الشَّيْءِ، وَبَدَلُ البَعْضِ مِنَ الكُلِّ، وَبَدَلُ الاشْتِمَالِ، وَبَدَلُ الغَلَطِ. نَحْوُ: قَامَ زَيْدٌ أَخُوكَ، وَأَكَلْتُ الرَّغِيفَ ثُلُثَهُ، وَنَفَعَنِي زَيْدٌ عِلْمُهُ، وَرَأَيْتُ زَيْدًا الفَرَسَ.",
+ en:"When a noun is substituted for a noun, or a verb for a verb, <strong>it follows it in all of its iʿrāb</strong>.",
+ pts:[
+  "<b>Four kinds:</b> badal of the whole from the whole (badal kull min kull); badal of part from whole; badal al-ishtimāl (inclusion); badal al-ghalaṭ (slip/correction).",
+  "The badal carries the same iʿrāb as the mubdal minhu, governed independently (as if the first were not mentioned).",
+  "It is the fourth of the tawābiʿ — and the end of this guide's scope."],
+ ex:"<span class='ar'>قامَ زيدٌ أخوكَ · أكلتُ الرغيفَ ثُلُثَه · نفعني زيدٌ علمُه · رأيتُ زيدًا الفرسَ</span>"}
+];
+
+/* ===================== TABLES ===================== */
+const TABLES = [
+ {h:"ʿAlāmāt al-Iʿrāb — the signs matrix",
+  meta:"which sign marks each case for each word-type",
+  html:`<div class="scrollx"><table class="ref">
+   <tr><th>Word type</th><th>Rafʿ</th><th>Naṣb</th><th>Khafḍ / Jazm</th></tr>
+   <tr><td class="lab">Ism mufrad</td><td><span class="ar">ـُ</span> ḍamma</td><td><span class="ar">ـَ</span> fatḥa</td><td><span class="ar">ـِ</span> kasra</td></tr>
+   <tr><td class="lab">Jamʿ taksīr</td><td><span class="ar">ـُ</span> ḍamma</td><td><span class="ar">ـَ</span> fatḥa</td><td><span class="ar">ـِ</span> kasra</td></tr>
+   <tr><td class="lab">Jamʿ muʾannath sālim</td><td><span class="ar">ـُ</span> ḍamma</td><td><span class="ar">ـِ</span> kasra</td><td><span class="ar">ـِ</span> kasra</td></tr>
+   <tr><td class="lab">Dual (muthannā)</td><td><span class="ar">ا</span> alif</td><td><span class="ar">ي</span> yāʾ</td><td><span class="ar">ي</span> yāʾ</td></tr>
+   <tr><td class="lab">Jamʿ mudhakkar sālim</td><td><span class="ar">و</span> wāw</td><td><span class="ar">ي</span> yāʾ</td><td><span class="ar">ي</span> yāʾ</td></tr>
+   <tr><td class="lab">The five nouns</td><td><span class="ar">و</span> wāw</td><td><span class="ar">ا</span> alif</td><td><span class="ar">ي</span> yāʾ</td></tr>
+   <tr><td class="lab">Muḍāriʿ (sound end)</td><td><span class="ar">ـُ</span> ḍamma</td><td><span class="ar">ـَ</span> fatḥa</td><td><span class="ar">ـْ</span> sukūn (jazm)</td></tr>
+   <tr><td class="lab">The five verbs</td><td><span class="ar">ن</span> thubūt nūn</td><td>ḥadhf nūn</td><td>ḥadhf nūn (jazm)</td></tr>
+   <tr><td class="lab">Mamnūʿ min aṣ-ṣarf</td><td><span class="ar">ـُ</span> ḍamma</td><td><span class="ar">ـَ</span> fatḥa</td><td><span class="ar">ـَ</span> fatḥa</td></tr>
+  </table></div>`},
+ {h:"an-Nawāṣib — the 10 particles of naṣb",
+  meta:"they put the muḍāriʿ into naṣb",
+  html:`<div class="chips">
+   <div class="chip">أَنْ<small>maṣdariyya</small></div><div class="chip">لَنْ<small>future neg.</small></div>
+   <div class="chip">إِذَنْ<small>recompense</small></div><div class="chip">كَيْ<small>purpose</small></div>
+   <div class="chip">لامُ كَيْ<small>lām of purpose</small></div><div class="chip">لامُ الجُحُود<small>lām of denial</small></div>
+   <div class="chip">حَتَّى<small>end-point</small></div><div class="chip">الفاء<small>jawāb</small></div>
+   <div class="chip">الواو<small>jawāb</small></div><div class="chip">أَوْ<small>jawāb</small></div></div>`},
+ {h:"al-Jawāzim — the 18 particles of jazm",
+  meta:"6 jazm one verb · 12 jazm two verbs (conditionals)",
+  html:`<div class="chips">
+   <div class="chip">لَمْ</div><div class="chip">لَمَّا</div><div class="chip">أَلَمْ</div><div class="chip">أَلَمَّا</div>
+   <div class="chip">لامُ الأمر</div><div class="chip">لا الناهية</div>
+   <div class="chip">إِنْ</div><div class="chip">مَا</div><div class="chip">مَنْ</div><div class="chip">مَهْمَا</div>
+   <div class="chip">إِذْمَا</div><div class="chip">أَيٌّ</div><div class="chip">مَتَى</div><div class="chip">أَيَّانَ</div>
+   <div class="chip">أَيْنَ</div><div class="chip">أَنَّى</div><div class="chip">حَيْثُمَا</div><div class="chip">كَيْفَمَا</div>
+   <div class="chip">إِذَا<small>poetry only</small></div></div>`},
+ {h:"The three sister-groups of the nominal sentence",
+  meta:"how each governs the mubtadaʾ–khabar",
+  html:`<div class="scrollx"><table class="ref">
+   <tr><th>Group</th><th>Effect</th><th>Members</th></tr>
+   <tr><td class="lab">Kāna &amp; sisters</td><td>raises ism, accuses khabar</td><td><span class="ar">كانَ، أمسى، أصبحَ، أضحى، ظلَّ، باتَ، صارَ، ليسَ، ما زالَ، ما انفكَّ، ما فتِئَ، ما برِحَ، ما دامَ</span></td></tr>
+   <tr><td class="lab">Inna &amp; sisters</td><td>accuses ism, raises khabar</td><td><span class="ar">إنَّ، أنَّ، لكنَّ، كأنَّ، ليتَ، لعلَّ</span></td></tr>
+   <tr><td class="lab">Ẓanantu &amp; sisters</td><td>accuses both (two mafʿūls)</td><td><span class="ar">ظننتُ، حسِبتُ، خِلتُ، زعمتُ، رأيتُ، علمتُ، وجدتُ، اتخذتُ، جعلتُ، سمعتُ</span></td></tr>
+  </table></div>`},
+ {h:"The five nouns &amp; the five verbs",
+  meta:"declined by letters",
+  html:`<div class="scrollx"><table class="ref">
+   <tr><th>—</th><th>The five nouns (al-asmāʾ al-khamsa)</th><th>The five verbs (al-afʿāl al-khamsa)</th></tr>
+   <tr><td class="lab">Members</td><td><span class="ar">أبوك، أخوك، حموك، فوك، ذو مالٍ</span></td><td><span class="ar">يفعلانِ، تفعلانِ، يفعلونَ، تفعلونَ، تفعلينَ</span></td></tr>
+   <tr><td class="lab">Rafʿ</td><td><span class="ar">و</span> (wāw)</td><td>thubūt of the <span class="ar">ن</span></td></tr>
+   <tr><td class="lab">Naṣb</td><td><span class="ar">ا</span> (alif)</td><td>ḥadhf of the <span class="ar">ن</span></td></tr>
+   <tr><td class="lab">Khafḍ / Jazm</td><td><span class="ar">ي</span> (yāʾ) — khafḍ</td><td>ḥadhf of the <span class="ar">ن</span> — jazm</td></tr>
+  </table></div>`},
+ {h:"al-Maʿārif — the five definites (from Bāb an-Naʿt)",
+  meta:"everything else is nakira",
+  html:`<div class="chips">
+   <div class="chip">المُضْمَر<small>pronoun: أنا، هو</small></div>
+   <div class="chip">العَلَم<small>proper noun: زيد</small></div>
+   <div class="chip">المُبْهَم<small>demonstr./relative: هذا، الذي</small></div>
+   <div class="chip">ذو الـ ال<small>with الـ : الرجل</small></div>
+   <div class="chip">المُضاف<small>annexed to one of these four</small></div></div>`}
+];
+
+/* ===================== FLASHCARDS DATA ===================== */
+const FC = {
+ def:[
+  ["al-Kalām","اللفظُ المركَّبُ المفيدُ بالوضعِ"],
+  ["Aqsām al-kalām","اسمٌ، وفعلٌ، وحرفٌ جاء لمعنًى"],
+  ["al-Iʿrāb","تغييرُ أواخرِ الكلمِ لاختلافِ العواملِ الداخلةِ عليها لفظًا أو تقديرًا"],
+  ["al-Fāʿil","الاسمُ المرفوعُ المذكورُ قبلَه فعلُه"],
+  ["Nāʾib al-fāʿil","الاسمُ المرفوعُ الذي لم يُذكَرْ معه فاعلُه"],
+  ["al-Mubtadaʾ","الاسمُ المرفوعُ العاري عن العواملِ اللفظيةِ"],
+  ["al-Khabar","الاسمُ المرفوعُ المسنَدُ إليه"],
+  ["Kāna wa-akhawātuhā","ترفعُ الاسمَ وتنصبُ الخبرَ"],
+  ["Inna wa-akhawātuhā","تنصبُ الاسمَ وترفعُ الخبرَ"],
+  ["Ẓanantu wa-akhawātuhā","تنصبُ المبتدأَ والخبرَ على أنهما مفعولانِ لها"],
+  ["an-Naʿt","تابعٌ للمنعوتِ في رفعِه ونصبِه وخفضِه، وتعريفِه وتنكيرِه"],
+  ["at-Tawkīd","تابعٌ للمؤكَّدِ في رفعِه ونصبِه وخفضِه وتعريفِه"],
+  ["al-Badal","إذا أُبدِلَ اسمٌ من اسمٍ أو فعلٌ من فعلٍ تبِعَه في جميعِ إعرابِه"]
+ ],
+ matn:[
+  ["Signs of the ism","الخفضُ، والتنوينُ، ودخولُ الألفِ واللامِ، وحروفُ الخفضِ"],
+  ["Signs of the fiʿl","قَدْ، والسينُ، وسوفَ، وتاءُ التأنيثِ الساكنةُ"],
+  ["Aqsām al-iʿrāb","رفعٌ، ونصبٌ، وخفضٌ، وجزمٌ"],
+  ["Signs of rafʿ (4)","الضمةُ، والواوُ، والألفُ، والنونُ"],
+  ["Signs of naṣb (5)","الفتحةُ، والألفُ، والكسرةُ، والياءُ، وحذفُ النونِ"],
+  ["Signs of khafḍ (3)","الكسرةُ، والياءُ، والفتحةُ"],
+  ["Signs of jazm (2)","السكونُ، والحذفُ"],
+  ["The three verbs","ماضٍ، ومضارعٌ، وأمرٌ"],
+  ["The four zawāʾid of the muḍāriʿ","يجمعُها قولُك: أَنَيْتُ"],
+  ["Count of the nawāṣib","عشرةٌ"],
+  ["Count of the jawāzim","ثمانيةَ عشرَ"],
+  ["The seven marfūʿāt — the tābiʿ","النعتُ، والعطفُ، والتوكيدُ، والبدلُ"],
+  ["The five maʿārif","المضمرُ، والعَلَمُ، والمبهمُ، وذو الألفِ واللامِ، والمضافُ إليها"],
+  ["Inna's sisters","إنَّ، وأنَّ، ولكنَّ، وكأنَّ، وليتَ، ولعلَّ"]
+ ]
+};
+
+/* ===================== QUIZ DATA ===================== */
+const QUIZ = [
+ {m:"def",q:"What does Ibn Ājurrūm define <em>al-kalām</em> as?",
+  o:["اللفظُ المركَّبُ المفيدُ بالوضعِ","كلُّ ما يُسمَعُ من الأصواتِ","الجملةُ الاسميةُ فقط","ما دلَّ على معنًى في نفسِه"],a:0,
+  e:"al-kalām = al-lafẓ al-murakkab al-mufīd bi-l-waḍʿ — utterance, composed, meaningful, by convention."},
+ {m:"def",q:"The parts of speech (aqsām al-kalām) are:",
+  o:["اسمٌ وفعلٌ وحرفٌ","اسمٌ وفعلٌ فقط","الفاعلُ والمفعولُ","المرفوعُ والمنصوبُ والمخفوضُ"],a:0,
+  e:"Three: ism, fiʿl, and a ḥarf that came for a meaning."},
+ {m:"signs",q:"How many signs does <em>rafʿ</em> have?",
+  o:["أربعٌ","خمسٌ","ثلاثٌ","اثنتانِ"],a:0,
+  e:"Rafʿ has 4: ḍamma, wāw, alif, nūn."},
+ {m:"signs",q:"How many signs does <em>naṣb</em> have?",
+  o:["خمسٌ","أربعٌ","ثلاثٌ","ستٌّ"],a:0,
+  e:"Naṣb has 5: fatḥa, alif, kasra, yāʾ, ḥadhf an-nūn."},
+ {m:"signs",q:"How many particles are the <em>nawāṣib</em>?",
+  o:["عشرةٌ","ثمانيةَ عشرَ","ستةٌ","أربعةٌ"],a:0,
+  e:"The nawāṣib (naṣb of the muḍāriʿ) are ten."},
+ {m:"signs",q:"How many particles are the <em>jawāzim</em>?",
+  o:["ثمانيةَ عشرَ","عشرةٌ","ستةَ عشرَ","اثنا عشرَ"],a:0,
+  e:"The jawāzim are eighteen (6 jazm one verb, 12 jazm two)."},
+ {m:"def",q:"<em>al-Fāʿil</em> is:",
+  o:["الاسمُ المرفوعُ المذكورُ قبلَه فعلُه","الاسمُ المنصوبُ بعدَ الفعلِ","الاسمُ المرفوعُ المسنَدُ إليه","ما لم يُذكَرْ معه فاعلُه"],a:0,
+  e:"al-fāʿil = the marfūʿ noun mentioned with its verb before it."},
+ {m:"def",q:"<em>al-Mubtadaʾ</em> is:",
+  o:["الاسمُ المرفوعُ العاري عن العواملِ اللفظيةِ","الاسمُ المرفوعُ المسنَدُ إليه","الاسمُ المنصوبُ بكانَ","الفعلُ المضارعُ المرفوعُ"],a:0,
+  e:"al-mubtadaʾ = the marfūʿ noun free of the pronounced governing agents. (The khabar is al-musnad ilayh.)"},
+ {m:"def",q:"<em>Kāna wa-akhawātuhā</em> do what?",
+  o:["ترفعُ الاسمَ وتنصبُ الخبرَ","تنصبُ الاسمَ وترفعُ الخبرَ","تنصبُهما جميعًا","تجزمُ الفعلَ المضارعَ"],a:0,
+  e:"Kāna raises the ism and accuses the khabar."},
+ {m:"def",q:"<em>Inna wa-akhawātuhā</em> do what?",
+  o:["تنصبُ الاسمَ وترفعُ الخبرَ","ترفعُ الاسمَ وتنصبُ الخبرَ","تنصبُهما جميعًا","لا عملَ لها"],a:0,
+  e:"Inna accuses the ism and raises the khabar — the mirror of kāna."},
+ {m:"def",q:"<em>Ẓanantu wa-akhawātuhā</em> do what?",
+  o:["تنصبُ المبتدأَ والخبرَ مفعولينِ","ترفعُ الاسمَ وتنصبُ الخبرَ","تنصبُ الاسمَ وترفعُ الخبرَ","ترفعُهما جميعًا"],a:0,
+  e:"They accuse both the mubtadaʾ and the khabar as two mafʿūls."},
+ {m:"def",q:"The naʿt follows the manʿūt in:",
+  o:["إعرابِه وتعريفِه وتنكيرِه","إعرابِه فقط","تعريفِه فقط","مَوقعِه من الجملةِ فقط"],a:0,
+  e:"The naʿt follows in rafʿ/naṣb/khafḍ AND in definiteness/indefiniteness."},
+ {m:"signs",q:"The four tawābiʿ are:",
+  o:["النعتُ والعطفُ والتوكيدُ والبدلُ","الفاعلُ والمفعولُ والحالُ والتمييزُ","كانَ وإنَّ وظنَّ وكادَ","الرفعُ والنصبُ والخفضُ والجزمُ"],a:0,
+  e:"The tābiʿ for the marfūʿ is four: naʿt, ʿaṭf, tawkīd, badal."},
+ {m:"signs",q:"Which case does NOT apply to nouns?",
+  o:["الجزمُ","الرفعُ","النصبُ","الخفضُ"],a:0,
+  e:"Nouns take rafʿ, naṣb, khafḍ — never jazm. (Verbs never take khafḍ.)"},
+ {m:"signs",q:"The four zawāʾid of the muḍāriʿ are gathered in the word:",
+  o:["أَنَيْتُ","نَأْتِي","سَأَلْتُمُونِيهَا","أَتَنْسَوْنَ"],a:0,
+  e:"They are gathered in your saying «أَنَيْتُ» — hamza, nūn, yāʾ, tāʾ."},
+ {m:"def",q:"Badal: when a noun replaces a noun, it follows it in:",
+  o:["جميعِ إعرابِه","الرفعِ فقط","التعريفِ فقط","المعنى دونَ الإعرابِ"],a:0,
+  e:"It follows the mubdal minhu in ALL of its iʿrāb. Four kinds: kull, baʿḍ, ishtimāl, ghalaṭ."},
+ {m:"signs",q:"The naṣb sign of the five nouns (al-asmāʾ al-khamsa) is:",
+  o:["الألفُ","الواوُ","الياءُ","الفتحةُ"],a:0,
+  e:"Five nouns: rafʿ = wāw, naṣb = alif, khafḍ = yāʾ. e.g. رأيتُ أباكَ."},
+ {m:"signs",q:"The rafʿ sign of jamʿ mudhakkar sālim is:",
+  o:["الواوُ","الضمةُ","الألفُ","النونُ"],a:0,
+  e:"Jamʿ mudhakkar sālim: rafʿ = wāw, naṣb/khafḍ = yāʾ."},
+ {m:"def",q:"Which is NOT one of inna's sisters?",
+  o:["ظَنَّ","لكنَّ","كأنَّ","لعلَّ"],a:0,
+  e:"Inna's sisters: إنّ، أنّ، لكنّ، كأنّ، ليتَ، لعلّ. ظنّ heads its own group (two mafʿūls)."},
+ {m:"signs",q:"The jazm sign of a muḍāriʿ with a sound ending is:",
+  o:["السكونُ","حذفُ النونِ","حذفُ حرفِ العلةِ","الفتحةُ"],a:0,
+  e:"Jazm has 2 signs: sukūn (sound-ending muḍāriʿ) and ḥadhf (weak-ending / the five verbs)."},
+ {m:"def",q:"Khabar ghayr mufrad is how many things?",
+  o:["أربعةٌ","ثلاثةٌ","اثنانِ","خمسةٌ"],a:0,
+  e:"Four: jārr+majrūr, ẓarf, a verb with its fāʿil, a mubtadaʾ with its khabar."},
+ {m:"def",q:"The maʿrifa (definites) are how many?",
+  o:["خمسةٌ","أربعةٌ","ثلاثةٌ","ستةٌ"],a:0,
+  e:"Five: muḍmar, ʿalam, mubham, the one with الـ, and what is annexed to one of these four."}
+];
+
+/* ===================== ENGINE ===================== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const VIEWS=[["home","Home"],["chapters","Chapters"],["tables","Tables"],["cards","Flashcards"],["match","Matching"],["quiz","Quiz"]];
+
+/* nav */
+const nav=$("#nav");
+VIEWS.forEach(([id,label],i)=>{
+  const b=document.createElement("button");
+  b.textContent=label; b.dataset.v=id; if(i===0)b.classList.add("on");
+  b.onclick=()=>go(id); nav.appendChild(b);
+});
+function go(id){
+  $$(".view").forEach(v=>v.classList.remove("on"));
+  $("#v-"+id).classList.add("on");
+  $$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===id));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$$("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+
+/* chapters */
+const GRP={usul:"Uṣūl — Kalām · Iʿrāb · Muʿrabāt",afaal:"al-Afʿāl — verbs & their governors",
+  marfuat:"al-Marfūʿāt — the nominatives",tawabi:"at-Tawābiʿ — the four followers"};
+function renderChapters(filter="all"){
+  const out=$("#ch-out"); out.innerHTML="";
+  let lastG=null;
+  CHAPTERS.filter(c=>filter==="all"||c.grp===filter).forEach(c=>{
+    if(c.grp!==lastG){
+      lastG=c.grp;
+      const h=document.createElement("div"); h.className="grp-h";
+      h.innerHTML=`<h3>${GRP[c.grp]}</h3><span class="pill">${CHAPTERS.filter(x=>x.grp===c.grp).length} abwāb</span>`;
+      out.appendChild(h);
+    }
+    const d=document.createElement("div");
+    d.className="card babcard g-"+c.grp;
+    d.innerHTML=`<div class="bid">${c.id}</div>
+      <div class="babname"><span class="ar">${c.ar}</span> ${c.title} <span class="tag">${c.tag}</span></div>
+      <div class="matn"><span class="ar ar-lg">${c.matn}</span><small>— matn al-Ajurrūmiyyah</small></div>
+      <div class="gloss">${c.en}</div>
+      <ul class="pts">${c.pts.map(p=>`<li>${p}</li>`).join("")}</ul>
+      <div class="ex"><b>نحو · e.g.</b> ${c.ex}</div>`;
+    out.appendChild(d);
+  });
+}
+$$("#ch-filter button").forEach(b=>b.onclick=()=>{
+  $$("#ch-filter button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); renderChapters(b.dataset.f);
+});
+renderChapters();
+
+/* tables */
+$("#tables-out").innerHTML=TABLES.map(t=>
+  `<div class="tcard"><h3>${t.h}</h3><div class="meta">${t.meta}</div>${t.html}</div>`).join("");
+
+/* flashcards */
+let fcMode="def", fcDeck=[], fcIdx=0, fcFlipped=false;
+function buildDeck(){ fcDeck=FC[fcMode].map((p,i)=>({q:p[0],a:p[1],i})); shuffle(fcDeck); fcIdx=0; fcFlipped=false; showCard(); }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} }
+function showCard(){
+  if(!fcDeck.length)return;
+  const c=fcDeck[fcIdx%fcDeck.length];
+  $("#fc").classList.remove("flip"); fcFlipped=false;
+  $("#fck").textContent = fcMode==="def" ? "term → definition" : "prompt → matn";
+  $("#fcq").innerHTML = `<span class="ar">${c.q}</span>`;
+  $("#fca").innerHTML = `<span class="ar">${c.a}</span>`;
+  $("#fc-count").textContent = `Card ${(fcIdx%fcDeck.length)+1} / ${fcDeck.length} · ${fcMode==="def"?"Definition recall":"Matn recall"}`;
+}
+$("#fc").onclick=()=>{ fcFlipped=!fcFlipped; $("#fc").classList.toggle("flip",fcFlipped); };
+$("#fc-flip").onclick=e=>{ e.stopPropagation(); $("#fc").click(); };
+$("#fc-got").onclick=e=>{ e.stopPropagation(); fcIdx++; showCard(); };
+$("#fc-again").onclick=e=>{ e.stopPropagation(); const c=fcDeck.splice(fcIdx%fcDeck.length,1)[0]; fcDeck.push(c); showCard(); };
+$$("#fc-mode button").forEach(b=>b.onclick=()=>{
+  $$("#fc-mode button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); fcMode=b.dataset.m; buildDeck();
+});
+buildDeck();
+
+/* matching */
+let mSel=null, mPairs=[], mDone=0;
+function newMatch(){
+  const pool=FC.def.slice(); shuffle(pool);
+  mPairs=pool.slice(0,5).map((p,i)=>({id:i,t:p[0],d:p[1]}));
+  const L=mPairs.map(p=>({id:p.id,txt:p.t,side:"L"}));
+  const R=mPairs.map(p=>({id:p.id,txt:p.d,side:"R"}));
+  shuffle(L); shuffle(R);
+  const grid=$("#match-grid"); grid.innerHTML=""; mSel=null; mDone=0;
+  for(let i=0;i<5;i++){
+    const lt=document.createElement("div"); lt.className="mtile"; lt.textContent=L[i].txt;
+    lt.dataset.id=L[i].id; lt.dataset.side="L"; lt.onclick=()=>pick(lt);
+    const rt=document.createElement("div"); rt.className="mtile"; rt.innerHTML=`<span class="ar">${R[i].txt}</span>`;
+    rt.dataset.id=R[i].id; rt.dataset.side="R"; rt.onclick=()=>pick(rt);
+    grid.appendChild(lt); grid.appendChild(rt);
+  }
+  $("#m-stat").textContent="0 / 5 matched";
+}
+function pick(t){
+  if(t.classList.contains("done"))return;
+  if(!mSel){ mSel=t; t.classList.add("sel"); return; }
+  if(mSel===t){ t.classList.remove("sel"); mSel=null; return; }
+  if(mSel.dataset.side===t.dataset.side){ mSel.classList.remove("sel"); mSel=t; t.classList.add("sel"); return; }
+  if(mSel.dataset.id===t.dataset.id){
+    [mSel,t].forEach(x=>{x.classList.remove("sel");x.classList.add("done");});
+    mSel=null; mDone++; $("#m-stat").textContent=`${mDone} / 5 matched`;
+    if(mDone===5)$("#m-stat").textContent="✓ all matched — new round?";
+  } else {
+    const a=mSel,b=t; a.classList.add("wrong"); b.classList.add("wrong");
+    setTimeout(()=>{a.classList.remove("wrong","sel");b.classList.remove("wrong");},420); mSel=null;
+  }
+}
+$("#m-new").onclick=newMatch; newMatch();
+
+/* quiz */
+let qMode="mixed", qList=[], qPos=0, qScore=0;
+function startQuiz(){
+  qList = QUIZ.filter(q=>qMode==="mixed"||q.m===qMode);
+  shuffle(qList); if(qMode==="mixed")qList=qList.slice(0,20);
+  qPos=0; qScore=0; renderQ();
+}
+function renderQ(){
+  const box=$("#quiz-out");
+  if(qPos>=qList.length){
+    const pct=Math.round(qScore/qList.length*100);
+    box.innerHTML=`<div class="scorebanner"><div class="big">${qScore}/${qList.length}</div>
+      <p style="margin:10px 0 18px;color:var(--muted)">${pct}% — ${pct>=80?"strong, ready":pct>=60?"solid, review misses":"revisit the matn"}</p>
+      <button class="btn primary" id="q-again">Restart</button></div>`;
+    $("#q-again").onclick=startQuiz; return;
+  }
+  const q=qList[qPos];
+  const opts=q.o.map((o,i)=>({o,i})); shuffle(opts);
+  box.innerHTML=`<div class="progress"><span style="width:${qPos/qList.length*100}%"></span></div>
+    <div class="counter" style="margin:0 0 12px;text-align:left">Q${qPos+1} / ${qList.length} · score ${qScore}</div>
+    <div class="qprompt">${q.q}</div>
+    <div id="q-opts">${opts.map(x=>`<button class="qopt" data-i="${x.i}"><span class="ar">${x.o}</span></button>`).join("")}</div>
+    <div class="qexp" id="q-exp"></div>
+    <button class="btn" id="q-next" style="margin-top:14px;display:none">Next →</button>`;
+  $$("#q-opts .qopt").forEach(btn=>btn.onclick=()=>{
+    const pick=+btn.dataset.i, correct=q.a;
+    $$("#q-opts .qopt").forEach(b=>{
+      b.disabled=true; const bi=+b.dataset.i;
+      if(bi===correct)b.classList.add("correct");
+      if(bi===pick&&pick!==correct)b.classList.add("incorrect");
+    });
+    if(pick===correct)qScore++;
+    const ex=$("#q-exp"); ex.innerHTML=`<strong>${pick===correct?"✓ Correct":"✗"}</strong> — ${q.e}`;
+    ex.classList.add("show"); $("#q-next").style.display="inline-block";
+  });
+  $("#q-next").onclick=()=>{ qPos++; renderQ(); };
+}
+$$("#quiz-mode button").forEach(b=>b.onclick=()=>{
+  $$("#quiz-mode button").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); qMode=b.dataset.qm; startQuiz();
+});
+startQuiz();
+
+/* keyboard */
+document.addEventListener("keydown",e=>{
+  if($("#v-cards").classList.contains("on")){
+    if(e.key===" "){e.preventDefault();$("#fc").click();}
+    if(e.key==="ArrowRight")$("#fc-got").click();
+  }
+});
+</script>
+</body>
+</html>
