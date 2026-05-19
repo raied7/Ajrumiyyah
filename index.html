@@ -142,6 +142,7 @@
   .fc-q .ar{font-size:2rem;display:block;margin:10px 0;color:var(--accent)}
   .fc-a{font-size:1.02rem}
   .fc-a .ar{font-size:1.55rem;color:var(--accent-2);display:block;margin:8px 0;line-height:1.95}
+  .fc-en{display:block;margin-top:10px;font-size:.95rem;color:var(--muted);line-height:1.5}
   .fc-hint{margin-top:14px;font-size:.8rem;color:var(--muted);font-family:'Spline Sans Mono',monospace}
   .fc-ctrl{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
   .fc-ctrl button,.btn{font-family:'Spline Sans Mono',monospace;font-size:.82rem;padding:10px 18px;border-radius:10px;
@@ -576,35 +577,35 @@ const TABLES = [
 /* ===================== FLASHCARDS DATA ===================== */
 const FC = {
  def:[
-  ["al-Kalām","اللفظُ المركَّبُ المفيدُ بالوضعِ"],
-  ["Aqsām al-kalām","اسمٌ، وفعلٌ، وحرفٌ جاء لمعنًى"],
-  ["al-Iʿrāb","تغييرُ أواخرِ الكلمِ لاختلافِ العواملِ الداخلةِ عليها لفظًا أو تقديرًا"],
-  ["al-Fāʿil","الاسمُ المرفوعُ المذكورُ قبلَه فعلُه"],
-  ["Nāʾib al-fāʿil","الاسمُ المرفوعُ الذي لم يُذكَرْ معه فاعلُه"],
-  ["al-Mubtadaʾ","الاسمُ المرفوعُ العاري عن العواملِ اللفظيةِ"],
-  ["al-Khabar","الاسمُ المرفوعُ المسنَدُ إليه"],
-  ["Kāna wa-akhawātuhā","ترفعُ الاسمَ وتنصبُ الخبرَ"],
-  ["Inna wa-akhawātuhā","تنصبُ الاسمَ وترفعُ الخبرَ"],
-  ["Ẓanantu wa-akhawātuhā","تنصبُ المبتدأَ والخبرَ على أنهما مفعولانِ لها"],
-  ["an-Naʿt","تابعٌ للمنعوتِ في رفعِه ونصبِه وخفضِه، وتعريفِه وتنكيرِه"],
-  ["at-Tawkīd","تابعٌ للمؤكَّدِ في رفعِه ونصبِه وخفضِه وتعريفِه"],
-  ["al-Badal","إذا أُبدِلَ اسمٌ من اسمٍ أو فعلٌ من فعلٍ تبِعَه في جميعِ إعرابِه"]
+  ["al-Kalām","اللفظُ المركَّبُ المفيدُ بالوضعِ","The utterance that is composed, meaningful, and set down by [Arabic] convention."],
+  ["Aqsām al-kalām","اسمٌ، وفعلٌ، وحرفٌ جاء لمعنًى","A noun (ism), a verb (fiʿl), and a particle (ḥarf) that came for a meaning."],
+  ["al-Iʿrāb","تغييرُ أواخرِ الكلمِ لاختلافِ العواملِ الداخلةِ عليها لفظًا أو تقديرًا","The changing of the ends of words on account of the differing governing agents entering upon them — whether pronounced (lafẓan) or estimated (taqdīran)."],
+  ["al-Fāʿil","الاسمُ المرفوعُ المذكورُ قبلَه فعلُه","The marfūʿ noun mentioned with its verb before it."],
+  ["Nāʾib al-fāʿil","الاسمُ المرفوعُ الذي لم يُذكَرْ معه فاعلُه","The marfūʿ noun whose doer (fāʿil) is not mentioned with it."],
+  ["al-Mubtadaʾ","الاسمُ المرفوعُ العاري عن العواملِ اللفظيةِ","The marfūʿ noun free of the pronounced governing agents."],
+  ["al-Khabar","الاسمُ المرفوعُ المسنَدُ إليه","The marfūʿ noun predicated of it (al-musnad ilayh)."],
+  ["Kāna wa-akhawātuhā","ترفعُ الاسمَ وتنصبُ الخبرَ","They raise the ism (subject) and accuse the khabar (predicate)."],
+  ["Inna wa-akhawātuhā","تنصبُ الاسمَ وترفعُ الخبرَ","They accuse the ism and raise the khabar."],
+  ["Ẓanantu wa-akhawātuhā","تنصبُ المبتدأَ والخبرَ على أنهما مفعولانِ لها","They accuse both the mubtadaʾ and the khabar as two objects (mafʿūlān) of theirs."],
+  ["an-Naʿt","تابعٌ للمنعوتِ في رفعِه ونصبِه وخفضِه، وتعريفِه وتنكيرِه","A follower of the described noun (manʿūt) in its rafʿ, naṣb, khafḍ — and in its definiteness and indefiniteness."],
+  ["at-Tawkīd","تابعٌ للمؤكَّدِ في رفعِه ونصبِه وخفضِه وتعريفِه","A follower of the corroborated word (muʾakkad) in its rafʿ, naṣb, khafḍ, and definiteness."],
+  ["al-Badal","إذا أُبدِلَ اسمٌ من اسمٍ أو فعلٌ من فعلٍ تبِعَه في جميعِ إعرابِه","When a noun is substituted for a noun, or a verb for a verb, it follows it in all of its iʿrāb."]
  ],
  matn:[
-  ["Signs of the ism","الخفضُ، والتنوينُ، ودخولُ الألفِ واللامِ، وحروفُ الخفضِ"],
-  ["Signs of the fiʿl","قَدْ، والسينُ، وسوفَ، وتاءُ التأنيثِ الساكنةُ"],
-  ["Aqsām al-iʿrāb","رفعٌ، ونصبٌ، وخفضٌ، وجزمٌ"],
-  ["Signs of rafʿ (4)","الضمةُ، والواوُ، والألفُ، والنونُ"],
-  ["Signs of naṣb (5)","الفتحةُ، والألفُ، والكسرةُ، والياءُ، وحذفُ النونِ"],
-  ["Signs of khafḍ (3)","الكسرةُ، والياءُ، والفتحةُ"],
-  ["Signs of jazm (2)","السكونُ، والحذفُ"],
-  ["The three verbs","ماضٍ، ومضارعٌ، وأمرٌ"],
-  ["The four zawāʾid of the muḍāriʿ","يجمعُها قولُك: أَنَيْتُ"],
-  ["Count of the nawāṣib","عشرةٌ"],
-  ["Count of the jawāzim","ثمانيةَ عشرَ"],
-  ["The seven marfūʿāt — the tābiʿ","النعتُ، والعطفُ، والتوكيدُ، والبدلُ"],
-  ["The five maʿārif","المضمرُ، والعَلَمُ، والمبهمُ، وذو الألفِ واللامِ، والمضافُ إليها"],
-  ["Inna's sisters","إنَّ، وأنَّ، ولكنَّ، وكأنَّ، وليتَ، ولعلَّ"]
+  ["Signs of the ism","الخفضُ، والتنوينُ، ودخولُ الألفِ واللامِ، وحروفُ الخفضِ","al-khafḍ (the genitive), tanwīn, accepting al- (الـ), and the particles of khafḍ."],
+  ["Signs of the fiʿl","قَدْ، والسينُ، وسوفَ، وتاءُ التأنيثِ الساكنةُ","qad, the sīn (سـ), sawfa, and the quiescent tāʾ of feminisation."],
+  ["Aqsām al-iʿrāb","رفعٌ، ونصبٌ، وخفضٌ، وجزمٌ","rafʿ, naṣb, khafḍ, and jazm."],
+  ["Signs of rafʿ (4)","الضمةُ، والواوُ، والألفُ، والنونُ","the ḍamma, the wāw, the alif, and the nūn."],
+  ["Signs of naṣb (5)","الفتحةُ، والألفُ، والكسرةُ، والياءُ، وحذفُ النونِ","the fatḥa, the alif, the kasra, the yāʾ, and dropping the nūn."],
+  ["Signs of khafḍ (3)","الكسرةُ، والياءُ، والفتحةُ","the kasra, the yāʾ, and the fatḥa."],
+  ["Signs of jazm (2)","السكونُ، والحذفُ","the sukūn and deletion (ḥadhf)."],
+  ["The three verbs","ماضٍ، ومضارعٌ، وأمرٌ","past (māḍī), present (muḍāriʿ), and command (amr)."],
+  ["The four zawāʾid of the muḍāriʿ","يجمعُها قولُك: أَنَيْتُ","gathered in your saying «anaytu» — the hamza, nūn, yāʾ, and tāʾ."],
+  ["Count of the nawāṣib","عشرةٌ","Ten."],
+  ["Count of the jawāzim","ثمانيةَ عشرَ","Eighteen."],
+  ["The seven marfūʿāt — the tābiʿ","النعتُ، والعطفُ، والتوكيدُ، والبدلُ","the naʿt, the ʿaṭf, the tawkīd, and the badal."],
+  ["The five maʿārif","المضمرُ، والعَلَمُ، والمبهمُ، وذو الألفِ واللامِ، والمضافُ إليها","the pronoun (muḍmar), the proper noun (ʿalam), the ambiguous noun (mubham), the noun with al-, and what is annexed to one of these four."],
+  ["Inna's sisters","إنَّ، وأنَّ، ولكنَّ، وكأنَّ، وليتَ، ولعلَّ","inna, anna, lākinna, kaʾanna, layta, and laʿalla."]
  ]
 };
 
@@ -733,7 +734,7 @@ $("#tables-out").innerHTML=TABLES.map(t=>
 
 /* flashcards */
 let fcMode="def", fcDeck=[], fcIdx=0, fcFlipped=false;
-function buildDeck(){ fcDeck=FC[fcMode].map((p,i)=>({q:p[0],a:p[1],i})); shuffle(fcDeck); fcIdx=0; fcFlipped=false; showCard(); }
+function buildDeck(){ fcDeck=FC[fcMode].map((p,i)=>({q:p[0],a:p[1],en:p[2],i})); shuffle(fcDeck); fcIdx=0; fcFlipped=false; showCard(); }
 function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} }
 function showCard(){
   if(!fcDeck.length)return;
@@ -741,7 +742,7 @@ function showCard(){
   $("#fc").classList.remove("flip"); fcFlipped=false;
   $("#fck").textContent = fcMode==="def" ? "term → definition" : "prompt → matn";
   $("#fcq").innerHTML = `<span class="ar">${c.q}</span>`;
-  $("#fca").innerHTML = `<span class="ar">${c.a}</span>`;
+  $("#fca").innerHTML = `<span class="ar">${c.a}</span>${c.en?`<span class="fc-en">${c.en}</span>`:""}`;
   $("#fc-count").textContent = `Card ${(fcIdx%fcDeck.length)+1} / ${fcDeck.length} · ${fcMode==="def"?"Definition recall":"Matn recall"}`;
 }
 $("#fc").onclick=()=>{ fcFlipped=!fcFlipped; $("#fc").classList.toggle("flip",fcFlipped); };
