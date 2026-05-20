@@ -222,7 +222,12 @@
       <div style="margin-top:12px"><button class="btn primary" data-go="tables">Open Tables →</button></div>
     </div>
     <div class="card babcard">
-      <div class="babname"><span class="ar">٣</span> Active Recall</div>
+      <div class="babname"><span class="ar">٣</span> Iʿrāb Method</div>
+      <div class="gloss">A working method for parsing any Arabic sentence: identify essence, function, case, and the sign expressing the case — said in the canonical order. Includes worked parses of <span class="ar">زيدٌ حاضرٌ في الدارِ</span>, <span class="ar">ذهبَ زيدٌ وعمرٌو إلى السوقِ</span>, and <span class="ar">هو جميلٌ</span>.</div>
+      <div style="margin-top:12px"><button class="btn primary" data-go="irab">Open Iʿrāb Method →</button></div>
+    </div>
+    <div class="card babcard">
+      <div class="babname"><span class="ar">٤</span> Active Recall</div>
       <div class="gloss">Flashcards (definition recall + matn recall), a matching game (term ↔ definition), and a quiz with multiple-choice questions on definitions, signs, and classification.</div>
       <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn" data-go="cards">Flashcards</button>
@@ -260,6 +265,132 @@
     <h2 class="section">Reference Tables</h2>
     <p class="lede">The high-yield lists, condensed. Swipe tables sideways on mobile.</p>
     <div id="tables-out"></div>
+  </section>
+
+  <!-- IʿRĀB METHOD -->
+  <section class="view" id="v-irab">
+    <h2 class="section">Iʿrāb Method — How to Parse</h2>
+    <p class="lede">A working method for coherent <em>iʿrāb</em> (parsing). For every word, identify the four qualities — <strong>essence</strong>, <strong>function</strong>, <strong>case</strong>, and <strong>the sign expressing the case</strong> — then say it in the canonical order. Adapted from <em>A Basic Guide to Coherent Iʿrāb</em>.</p>
+
+    <div class="card babcard">
+      <div class="babname"><span class="ar">★</span> The Four Qualities of a Parse</div>
+      <div class="gloss">For every word in a sentence, identify:</div>
+      <ul class="pts">
+        <li><b>1) Essence</b> — what it is in the language (pronoun? particle? verb?). Required for <em>mabnī</em> words; optional for muʿrab nouns since it is obvious. All verbs must be identified.</li>
+        <li><b>2) Grammatical function</b> — its role (mubtadaʾ, khabar, fāʿil, mafʿūl bihi, muḍāf ilayhi…).</li>
+        <li><b>3) Grammatical case</b> — <em>marfūʿ / manṣūb / majrūr / majzūm</em> for muʿrab; the <em>maḥall</em> for mabnī with a place.</li>
+        <li><b>4) Sign expressing the case</b> — for <em>muʿrab</em> words only.</li>
+      </ul>
+    </div>
+
+    <div class="card babcard">
+      <div class="babname"><span class="ar">١</span> Essence (al-Dhāt)</div>
+      <div class="gloss">The essence answers <em>what kind of word is this?</em> Recognise these by their set labels:</div>
+      <ul class="pts">
+        <li><span class="ar">الذي، اللذان، الذين، التي، اللتان، اللائي، من، ما…</span> → <b>اسم موصول</b> (relative noun)</li>
+        <li><span class="ar">هذا، هذان، هؤلاء، هذه، ذلك، تلك…</span> → <b>اسم إشارة</b> (demonstrative noun)</li>
+        <li><span class="ar">من، إلى، عن، على، في، رُبَّ، بـ…</span> → <b>حرف جر</b></li>
+        <li><span class="ar">و، ثم، فـ، أو</span> → <b>حرف عطف</b></li>
+        <li><span class="ar">تفعلون، تفعلان، تفعلين، فعلتُ، فعلتَ، فعلتِ، فعلتما، فعلتم، نصرا، نصروا</span> → <b>ضمير متصل</b> (attached pronoun, subject)</li>
+        <li><span class="ar">ـه، ـهما، ـهم، ـها، ـهن، ـك، ـكما، ـكم…</span> → <b>ضمير متصل</b> (attached pronoun, object/genitive)</li>
+        <li><span class="ar">هو، هما، هي، هم، هن…</span> → <b>ضمير منفصل</b> (detached pronoun)</li>
+        <li><span class="ar">ضربَ، نصرتا، درستم، اشتريتموه…</span> → <b>فعل ماض</b></li>
+      </ul>
+      <div class="ex"><b>Rule of thumb:</b> for <em>muʿrab</em> nouns (<span class="ar">زيد، كتاب، مصر</span>) the essence is obvious and need not be stated. For <em>mabnī</em> nouns (pronouns, demonstratives, relatives) it <b>must</b> be stated. <b>All</b> verbs are always identified by essence.</div>
+    </div>
+
+    <div class="card babcard">
+      <div class="babname"><span class="ar">٢</span> Grammatical Case — Muʿrab vs Mabnī</div>
+      <div class="gloss"><strong>Muʿrab</strong> words change their endings for the governor; classify them as <em>marfūʿ / manṣūb / majrūr / majzūm</em>. <strong>Mabnī</strong> words do not change; instead, identify the vowel of <em>binaʾ</em> and (when applicable) the <em>maḥall</em>.</div>
+      <ul class="pts">
+        <li><b>Mabnī step 1 — the binaʾ vowel:</b> e.g. <span class="ar">ضرَبَ</span> = <span class="ar">مبني على الفتح</span>; <span class="ar">مِنْ</span> = <span class="ar">مبني على السكون</span>.</li>
+        <li><b>Mabnī step 2 — the maḥall:</b> if it has a grammatical place, it will be one of <span class="ar">في محل رفع / في محل نصب / في محل جر / في محل جزم</span>, then state the function.</li>
+        <li><b>All mabnī nouns always have a maḥall</b> — ḍamāʾir (attached and detached), asmāʾ al-ishāra, asmāʾ mawṣūla, and any other mabnī noun.</li>
+        <li><b>No maḥall:</b> all <em>ḥurūf</em> (jarr, naṣb, jazm, ʿaṭf, taʾkīd, istithnāʾ, istidrāk…) and the <em>fiʿl māḍī</em>. Mark them <span class="ar">لا محل له من الإعراب</span>.</li>
+      </ul>
+      <div class="ex"><b>Worked mabnī examples:</b>
+        <div style="margin-top:6px"><span class="ar">نجح هذا الولدُ</span> — «<span class="ar">هذا</span>»: <span class="ar">اسم إشارة مبني على السكون في محل رفع فاعل</span>.</div>
+        <div><span class="ar">رأيتُ تلك البنتَ</span> — «<span class="ar">تلك</span>»: <span class="ar">اسم إشارة مبني على الفتح في محل نصب مفعول به</span>.</div>
+        <div><span class="ar">مررتُ بهذا</span> — «<span class="ar">هذا</span>»: <span class="ar">اسم إشارة مبني على السكون في محل جر بـ«الباء»</span>.</div>
+        <div><span class="ar">هذا كتابُ الذي لقيتُه أمسِ</span> — «<span class="ar">الذي</span>»: <span class="ar">اسم موصول مبني على السكون في محل جر مضاف إليه</span>.</div>
+        <div><span class="ar">واللذانِ يأتيانها منكم فآذوهما</span> — «<span class="ar">اللذان</span>»: <span class="ar">اسم موصول مبني على الكسر في محل رفع مبتدأ</span>.</div>
+      </div>
+    </div>
+
+    <div class="card babcard">
+      <div class="babname"><span class="ar">٣</span> Function (al-Mawqiʿ)</div>
+      <div class="gloss">The function is the word's grammatical role — subject, predicate, object, adjective, possessive, etc. <em>When</em> you say it depends on muʿrab vs mabnī.</div>
+      <ul class="pts">
+        <li><b>For muʿrab words:</b> state the <b>function first</b>, then case and sign — because the essence is obvious. Example: «<span class="ar">زيد</span>»: <span class="ar">مبتدأ مرفوع وعلامة رفعه الضمة</span>.</li>
+        <li><b>For mabnī words:</b> state the function <b>last</b>, after essence, binaʾ, and maḥall. Example: «<span class="ar">هو</span>»: <span class="ar">ضمير منفصل مبني على الفتح في محل رفع مبتدأ</span>.</li>
+        <li><b>Why this order?</b> If you say "mubtadaʾ" first for «<span class="ar">هو</span>», an untrained mind will start hunting for a ḍamma that isn't there.</li>
+      </ul>
+    </div>
+
+    <div class="card babcard">
+      <div class="babname"><span class="ar">٤</span> The Sign Expressing the Case</div>
+      <div class="gloss">For <strong>muʿrab</strong> words only — name the sign after the case. Mabnī words have no such sign by definition.</div>
+      <div class="scrollx" style="margin-top:10px"><table class="ref">
+        <tr><th>Case</th><th>Sign</th><th>Where it applies</th></tr>
+        <tr><td class="lab" rowspan="4">Rafʿ</td><td><span class="ar">ـُ</span> Ḍamma</td><td>Ism mufrad, jamʿ taksīr, jamʿ muʾannath sālim, muḍāriʿ with sound ending</td></tr>
+        <tr><td><span class="ar">و</span> Wāw</td><td>Jamʿ mudhakkar sālim, and the five nouns (when muḍāf)</td></tr>
+        <tr><td><span class="ar">ا</span> Alif</td><td>Dual (tathniya)</td></tr>
+        <tr><td><span class="ar">ن</span> Thubūt al-nūn</td><td>The five verbs — <span class="ar">يفعلان، تفعلان، يفعلون، تفعلون، تفعلين</span></td></tr>
+        <tr><td class="lab" rowspan="5">Naṣb</td><td><span class="ar">ـَ</span> Fatḥa</td><td>Same places as ḍamma — except jamʿ muʾannath sālim</td></tr>
+        <tr><td><span class="ar">ا</span> Alif</td><td>The five nouns</td></tr>
+        <tr><td><span class="ar">ـِ</span> Kasra</td><td>Jamʿ muʾannath sālim</td></tr>
+        <tr><td><span class="ar">ي</span> Yāʾ</td><td>Dual, jamʿ mudhakkar sālim</td></tr>
+        <tr><td>Ḥadhf al-nūn</td><td>The five verbs</td></tr>
+        <tr><td class="lab" rowspan="3">Jarr</td><td><span class="ar">ـِ</span> Kasra</td><td>Same places as ḍamma's (singular & broken plural, munṣarif)</td></tr>
+        <tr><td><span class="ar">ي</span> Yāʾ</td><td>Dual, jamʿ mudhakkar sālim, and the five nouns</td></tr>
+        <tr><td><span class="ar">ـَ</span> Fatḥa</td><td>Mamnūʿ min aṣ-ṣarf (ghayr munṣarif)</td></tr>
+        <tr><td class="lab" rowspan="3">Jazm</td><td><span class="ar">ـْ</span> Sukūn</td><td>Sound-ending muḍāriʿ (no dual/plural pronoun, no weak letter)</td></tr>
+        <tr><td>Ḥadhf al-nūn</td><td>The five verbs</td></tr>
+        <tr><td>Ḥadhf ḥarf al-ʿilla</td><td>Muḍāriʿ ending in a weak letter — <span class="ar">لم يرمِ، لم يدعُ</span></td></tr>
+      </table></div>
+      <ul class="pts" style="margin-top:14px">
+        <li><b>The five verbs (al-afʿāl al-khamsa):</b> dual <span class="ar">يفعلان، تفعلان</span>; masculine plural <span class="ar">يفعلون، تفعلون</span>; 2nd singular feminine <span class="ar">تفعلين</span>. Their nūn drops in naṣb/jazm.</li>
+        <li><b>Trap:</b> the feminine plural <span class="ar">يفعلن</span>, though it ends in nūn, is <em>not</em> one of the five — its nūn is <em>nūn al-niswa</em>, not a sign of rafʿ. It does not drop after <span class="ar">لن</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card babcard">
+      <div class="babname"><span class="ar">✓</span> Worked Examples — Full Parses</div>
+
+      <div class="gloss" style="margin-top:4px"><b>1.</b> <span class="ar">زيدٌ حاضرٌ في الدارِ</span> — "Zayd is present in the house."</div>
+      <ul class="pts">
+        <li>«<span class="ar">زيد</span>»: <span class="ar">مبتدأ مرفوع وعلامة رفعه الضمة</span>.</li>
+        <li>«<span class="ar">حاضر</span>»: <span class="ar">خبر مرفوع وعلامة رفعه الضمة</span>.</li>
+        <li>«<span class="ar">في</span>»: <span class="ar">حرف جر مبني على السكون لا محل له من الإعراب</span>.</li>
+        <li>«<span class="ar">الدار</span>»: <span class="ar">اسم مجرور بـ«في» وعلامة جره الكسرة</span>.</li>
+      </ul>
+
+      <div class="gloss" style="margin-top:14px"><b>2.</b> <span class="ar">ذهبَ زيدٌ وعمرٌو إلى السوقِ</span> — "Zayd and ʿAmr went to the market."</div>
+      <ul class="pts">
+        <li>«<span class="ar">ذهب</span>»: <span class="ar">فعل ماض مبني على الفتح لا محل له من الإعراب</span>.</li>
+        <li>«<span class="ar">زيد</span>»: <span class="ar">فاعل مرفوع وعلامة رفعه الضمة</span>.</li>
+        <li>«<span class="ar">و</span>»: <span class="ar">حرف عطف مبني على الفتح لا محل له من الإعراب</span>.</li>
+        <li>«<span class="ar">عمرو</span>»: <span class="ar">معطوف على «زيد» مرفوع وعلامة رفعه الضمة</span>.</li>
+        <li>«<span class="ar">إلى</span>»: <span class="ar">حرف جر مبني على السكون لا محل له من الإعراب</span>.</li>
+        <li>«<span class="ar">السوق</span>»: <span class="ar">اسم مجرور وعلامة جره الكسرة</span>.</li>
+      </ul>
+
+      <div class="gloss" style="margin-top:14px"><b>3.</b> <span class="ar">هو جميلٌ</span> — "He is beautiful." (mabnī mubtadaʾ)</div>
+      <ul class="pts">
+        <li>«<span class="ar">هو</span>»: <span class="ar">ضمير منفصل مبني على الفتح في محل رفع مبتدأ</span>.</li>
+        <li>«<span class="ar">جميل</span>»: <span class="ar">خبر مرفوع وعلامة رفعه الضمة</span>.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="background:#fbf2e2">
+      <div class="babname"><span class="ar">★</span> Quick Checklist</div>
+      <ol class="pts" style="list-style:decimal;padding-left:22px">
+        <li><b>Mabnī?</b> → essence → binaʾ vowel → maḥall (or <span class="ar">لا محل له</span>) → function.</li>
+        <li><b>Muʿrab?</b> → function → case (<em>marfūʿ / manṣūb / majrūr / majzūm</em>) → sign.</li>
+        <li><b>Always no maḥall:</b> all <em>ḥurūf</em> and every <em>fiʿl māḍī</em>.</li>
+        <li><b>Always has a maḥall:</b> every mabnī <em>noun</em> (pronouns, demonstratives, relatives).</li>
+      </ol>
+    </div>
   </section>
 
   <!-- FLASHCARDS -->
@@ -681,7 +812,7 @@ const QUIZ = [
 
 /* ===================== ENGINE ===================== */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const VIEWS=[["home","Home"],["chapters","Chapters"],["tables","Tables"],["cards","Flashcards"],["match","Matching"],["quiz","Quiz"]];
+const VIEWS=[["home","Home"],["chapters","Chapters"],["tables","Tables"],["irab","Iʿrāb Method"],["cards","Flashcards"],["match","Matching"],["quiz","Quiz"]];
 
 /* nav */
 const nav=$("#nav");
